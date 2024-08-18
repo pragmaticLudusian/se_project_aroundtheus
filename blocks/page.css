@@ -1,15 +1,15 @@
-body{
+body {
   /* background-color: #000; */
 }
 
-.page{
+.page {
   min-width: 320px;
   max-width: 1280px;
-  margin:0 auto;
+  margin: 0 auto;
   background-color: #000;
-  color:#fff;
-  font-family:Inter, Arial, sans-serif;
-  display:flex;
+  color: #fff;
+  font-family: Inter, Arial, sans-serif;
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
