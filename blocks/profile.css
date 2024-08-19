@@ -1,5 +1,4 @@
 .profile {
-  height: 120px;
   display: flex;
   align-items: center;
   padding: 40px 0 50px;
@@ -12,12 +11,17 @@
   margin-right: 30px;
 }
 
+.profile__top-wrapper {
+  display: flex;
+  align-items: baseline;
+}
+
 .profile__name {
   margin: 0 18px 7px 0;
   font-size: 42px;
   line-height: 1.15;
   font-weight: 500;
-  display: inline;
+  /* display: inline; would leave a trailing whitespace and mess with the margin */
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -34,6 +38,7 @@
   height: 10px;
   padding: 7px;
   border: 1px solid #fff;
+  transition: opacity 0.4s ease;
 }
 
 .profile__edit-button:hover {
@@ -46,8 +51,58 @@
   margin-left: auto;
   padding: 14px 64px;
   border: 2px solid #fff;
+  border-radius: 2px;
+  transition: opacity 0.4s ease;
 }
 
 .profile__add-button:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 600px) {
+  /* mobile view */
+  .profile {
+    flex-direction: column;
+    padding: 42px 0 36px;
+  }
+
+  .profile__avatar {
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
+
+  .profile__add-button {
+    margin: 36px auto 0;
+    width: 16px;
+    height: 16px;
+    padding: 17px 133px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 760px) {
+  /* intermediate tablet view */
+  .profile__add-button {
+    width: 16px;
+    height: 16px;
+    padding: 14px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  /* tablet view */
+  .profile__name {
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 0 10px 14px 0;
+  }
+
+  .profile__description {
+    font-size: 14px;
+  }
+
+  .profile__edit-button {
+    width: 7.5px;
+    height: 7.5px;
+    padding: 5px;
+  }
 }

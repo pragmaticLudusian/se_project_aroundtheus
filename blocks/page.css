@@ -1,11 +1,16 @@
 .page {
-  /* it's in the body tag for consistent colors while keeping to the BEM */
+  /* it's the body tag for consistent colors while adhering to the BEM */
   background-color: #000;
   color: #fff;
   min-width: 320px;
   max-width: 880px; /* 1280px is the view, not the actual page size as there's no upper-bound limit */
   margin: 0 auto;
-  padding: 0 10px; /* "the elements never touch the side of the container" */
   font-family: Inter, Arial, sans-serif;
   /* although flex-column-center would center the entire page, it would shrink its items within the cross axis and rigidly set their widths to introduce x-scrolling */
+}
+
+@media screen and (min-width: 581px) {
+  .page {
+    padding: 0 10px; /* "the elements never touch the side of the container @sizes >320px" */
+  }
 }

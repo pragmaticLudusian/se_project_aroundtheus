@@ -1,6 +1,5 @@
 .card {
-  width: 282px;
-  height: 361px;
+  /* width: 282px; by default fills the entire container */
   background-color: #fff;
   color: #000;
   border-radius: 10px;
@@ -32,6 +31,7 @@
 .card__like {
   width: 20px;
   height: 18px;
+  transition: opacity 0.4s ease;
 }
 
 .card__like:hover {
