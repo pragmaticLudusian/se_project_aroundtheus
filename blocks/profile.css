@@ -1,7 +1,7 @@
 .profile {
   display: flex;
   align-items: center;
-  padding: 40px 0 50px;
+  padding: 40px 10px 50px;
 }
 
 .profile__avatar {
@@ -23,8 +23,10 @@
   font-weight: 500;
   /* display: inline; would leave a trailing whitespace and mess with the margin */
   text-overflow: ellipsis;
-  white-space: nowrap;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .profile__description {
@@ -39,6 +41,7 @@
   padding: 7px;
   border: 1px solid #fff;
   transition: opacity 0.4s ease;
+  margin-right: 18px;
 }
 
 .profile__edit-button:hover {
@@ -104,5 +107,6 @@
     width: 7.5px;
     height: 7.5px;
     padding: 5px;
+    margin-right: 10px;
   }
 }

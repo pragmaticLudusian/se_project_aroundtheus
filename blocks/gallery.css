@@ -1,6 +1,6 @@
 .gallery__cards {
   margin: 0;
-  padding: 0;
+  padding: 0 10px; /* needed to increase max-width for page because it would've either been stuck at 2 columns or introduce x-scroll with forced width */
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, 282px);
