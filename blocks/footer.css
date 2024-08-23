@@ -3,6 +3,8 @@
 }
 
 .footer__copyright {
+  font-size: 18px;
+  line-height: 1.2;
   color: #545454;
   margin: 0 auto;
 }
@@ -14,13 +16,21 @@
   }
 
   .footer__copyright {
-    width: 282px;
+    font-size: 14px;
+    max-width: 282px;
   }
 }
 
 @media screen and (min-width: 601px) and (max-width: 899px) {
   /* tablet */
   .footer__copyright {
-    width: 582px;
+    max-width: 582px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  /* desktop */
+  .footer {
+    padding-left: 10px;
   }
 }
