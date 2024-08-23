@@ -31,7 +31,7 @@ This website was made with responsive design in mind, providing navigation and a
 
 ### Video
 
-WIP
+[Link's in the Google Drive](https://drive.google.com/file/d/15dxpdWaq9NFDU2au3w3Y2PKEp8nig48a/view?usp=drive_link)
 
 ## Resources
 
