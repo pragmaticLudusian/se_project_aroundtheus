@@ -114,6 +114,29 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
     </footer>
+    <div class="modal">
+      <form class="modal__container">
+        <button type="button" class="modal__close"></button>
+        <h2 class="modal__title">Edit profile</h2>
+        <fieldset class="modal__fieldset">
+          <input
+            type="text"
+            name="modal__input_field_name"
+            id="modal__input_field_name"
+            class="modal__input modal__input_field_name"
+            placeholder="Name"
+          />
+          <input
+            type="text"
+            name="modal__input_field_description"
+            id="modal__input_field_description"
+            class="modal__input modal__input_field_description"
+            placeholder="Description"
+          />
+        </fieldset>
+        <button type="button" class="modal__save">Save</button>
+      </form>
+    </div>
     <script src="scripts/index.js"></script>
   </body>
 </html>
