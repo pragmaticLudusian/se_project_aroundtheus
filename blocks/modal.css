@@ -26,8 +26,8 @@
   line-height: 1.2;
 }
 
-.modal__close {
-  background: url(../images/close.svg) no-repeat center;
+.modal__close-button {
+  background: url(../images/close.svg) no-repeat center/contain;
   position: absolute;
   right: -40px;
   top: -40px;
@@ -89,10 +89,9 @@
     width: 282px;
   }
 
-  .modal__close {
+  .modal__close-button {
     width: 26px;
     height: 26px;
-    background-size: 100%;
     top: -52px;
     right: 6px;
   }
