@@ -8,10 +8,11 @@ This website was made with responsive design in mind, providing navigation and a
 
 - HTML5
 - CSS
+- JavaScript
 - Flexbox
 - Grid
 - Media queries
-- The BEM methodology (pages + flat files)
+- The BEM methodology (page blocks + flat files)
 
 ## Previews
 
@@ -35,5 +36,6 @@ This website was made with responsive design in mind, providing navigation and a
 
 ## Resources
 
-- [Link to project on Figma](https://www.figma.com/file/Es8zZP3ARGH9JGcw60i3OD/Sprint-3_-Around-the-US?node-id=6432%3A147&t=7oYKsnPJeNJQDFCB-1)
-- [Alt. link in case the above's overloaded](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
+- [Figma link I - base design](https://www.figma.com/file/Es8zZP3ARGH9JGcw60i3OD/Sprint-3_-Around-the-US?node-id=6432%3A147&t=7oYKsnPJeNJQDFCB-1)
+  - [Alt. link in case the above's overloaded](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
+- [Figma link II - modal design](https://www.figma.com/file/EO5AaNCuzzFL7X5gSY7HwQ/Sprint-4_-Around-The-U.S.-_-desktop-%2B-mobile?t=3hvVWRz9LUFsxyNn-6)
