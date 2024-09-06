@@ -25,14 +25,30 @@ let initialCards = [
   },
 ];
 
-const buttonEditProfile = document.querySelector(".profile__edit-button");
-const modalWindow = document.querySelector(".modal");
+const profile = document.querySelector(".profile");
+const buttonEditProfile = profile.querySelector(".profile__edit-button");
+
+const modalWindow = document.querySelector("#modal-edit-profile"); // account for another future modal window
 const buttonCloseModal = modalWindow.querySelector(".modal__close-button");
 
-buttonEditProfile.addEventListener("click",function(){
-  modalWindow.classList.add("modal_opened");
-});
+buttonEditProfile.addEventListener("click", clickOpenProfileModal);
+buttonCloseModal.addEventListener("click", clickCloseProfileModal);
 
-buttonCloseModal.addEventListener("click",function(){
+function clickOpenProfileModal() {
+  // these are the HTML page vars
+  const profileName = profile.querySelector(".profile__name");
+  const profileDesc = profile.querySelector(".profile__description");
+  // and these are the modal window vars
+  const inputName = modalWindow.querySelector("#modal__input_field_name");
+  const inputDesc = modalWindow.querySelector(
+    "#modal__input_field_description"
+  );
+  inputName.value = profileName.textContent; // using separate let vars aren't necessary
+  inputDesc.value = profileDesc.textContent;
+
+  modalWindow.classList.add("modal_opened"); // for rendering purposes, here it's the last line
+}
+
+function clickCloseProfileModal() {
   modalWindow.classList.remove("modal_opened");
-});
+}
