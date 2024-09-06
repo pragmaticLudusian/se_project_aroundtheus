@@ -1,65 +1,83 @@
 let initialCards = [
   {
     name: "Harbor Springs",
-    link: "https://images.unsplash.com/photo-1595521624742-47e90260edab?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    link: "../images/cards/harbor-springs.jpg",
   },
   {
     name: "Downtown Chicago",
-    link: "https://images.unsplash.com/photo-1593536768088-f01676d1330b?q=80&w=2673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    link: "../images/cards/chicago.jpg",
   },
   {
     name: "Bethlehem",
-    link: "https://images.unsplash.com/photo-1580166338999-bc03438239c0?q=80&w=2598&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    link: "../images/cards/bethlehem.jpg",
   },
   {
     name: "Perrysburg",
-    link: "https://images.unsplash.com/photo-1685900248738-d98ec5c859aa?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    link: "../images/cards/perrysburg.jpg",
   },
   {
     name: "Venice Beach",
-    link: "https://images.unsplash.com/photo-1504731231146-c0f65dc6a950?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    link: "../images/cards/venice-beach.jpg",
   },
   {
     name: "Palace of Fine Arts",
-    link: "https://images.unsplash.com/photo-1573532271406-b13cb961e22e?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    link: "../images/cards/palace-finearts.jpg",
   },
 ];
 
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
 
-const profileModal = document.querySelector("#modal-profile"); // account for another future modal window
-const profileCloseButton = profileModal.querySelector("#modal-profile-close");
+const modalWindowProfile = document.querySelector("#modal-profile"); // account for potentially another future modal window
+const buttonCloseProfileModal = modalWindowProfile.querySelector(
+  "#modal-profile-close"
+);
 
-buttonEditProfile.addEventListener("click", clickOpenProfileModal);
-profileCloseButton.addEventListener("click", closeProfileModal); // 2 ways to close: x and save
+buttonEditProfile.addEventListener("click", openProfileModal);
+buttonCloseProfileModal.addEventListener("click", closeProfileModal); // 2 ways to close: x and save
+modalWindowProfile.addEventListener("submit", saveProfileModal); // saves the need to tie an event listener to a button, as long as the html button type is 'submit'
 
-// these are the HTML page vars
+// these are the HTML page vars...
 const profileName = profile.querySelector(".profile__name");
-const profileDesc = profile.querySelector(".profile__description");
+const profileDescription = profile.querySelector(".profile__description");
 // and these are the modal window vars
-const inputProfileName = profileModal.querySelector("#modal-profile-name");
-const inputProfileDesc = profileModal.querySelector(
+const inputProfileName = modalWindowProfile.querySelector(
+  "#modal-profile-name"
+);
+const inputProfileDescription = modalWindowProfile.querySelector(
   "#modal-profile-description"
 );
 
-function clickOpenProfileModal() {
-  // using separate let vars aren't necessary
-  inputProfileName.value = profileName.textContent;
-  inputProfileDesc.value = profileDesc.textContent;
-  profileModal.classList.add("modal_opened"); // for rendering purposes, here it's the last line
+// init the gallery cards
+const cardsGallery = document.querySelector(".gallery__cards");
+const cardTemplate = document.querySelector("#card-template").content; // as a template, its HTML content won't suffice without using the .content property
+for (let card of initialCards) {
+  cardsGallery.append(getCardElement(card));
 }
 
-profileModal.addEventListener("submit", saveProfileModal); // saves the need to tie an event listener to a button, as long as the html button type is 'submit'
+function openProfileModal() {
+  // using separate let vars aren't necessary
+  inputProfileName.value = profileName.textContent;
+  inputProfileDescription.value = profileDescription.textContent;
+  modalWindowProfile.classList.add("modal_opened"); // for rendering purposes, here it's the last line
+}
 
 function saveProfileModal(event) {
   event.preventDefault();
   // update from profile modal to profile page
   profileName.textContent = inputProfileName.value;
-  profileDesc.textContent = inputProfileDesc.value;
+  profileDescription.textContent = inputProfileDescription.value;
   closeProfileModal();
 }
 
 function closeProfileModal() {
-  profileModal.classList.remove("modal_opened");
+  modalWindowProfile.classList.remove("modal_opened");
+}
+
+function getCardElement(data) {
+  let cardElement = cardTemplate.querySelector(".card").cloneNode(true); // cloning in a loop is fine
+  cardElement.querySelector(".card__image").src = data.link;
+  cardElement.querySelector(".card__image").alt = data.name;
+  cardElement.querySelector(".card__title").textContent = data.name;
+  return cardElement;
 }
