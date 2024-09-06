@@ -28,27 +28,38 @@ let initialCards = [
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
 
-const modalWindow = document.querySelector("#modal-edit-profile"); // account for another future modal window
-const buttonCloseModal = modalWindow.querySelector(".modal__close-button");
+const profileModal = document.querySelector("#modal-profile"); // account for another future modal window
+const profileCloseButton = profileModal.querySelector("#modal-profile-close");
 
 buttonEditProfile.addEventListener("click", clickOpenProfileModal);
-buttonCloseModal.addEventListener("click", clickCloseProfileModal);
+profileCloseButton.addEventListener("click", closeProfileModal); // 2 ways to close: x and save
+
+// these are the HTML page vars
+const profileName = profile.querySelector(".profile__name");
+const profileDesc = profile.querySelector(".profile__description");
+// and these are the modal window vars
+const inputProfileName = profileModal.querySelector("#modal-profile-name");
+const inputProfileDesc = profileModal.querySelector(
+  "#modal-profile-description"
+);
 
 function clickOpenProfileModal() {
-  // these are the HTML page vars
-  const profileName = profile.querySelector(".profile__name");
-  const profileDesc = profile.querySelector(".profile__description");
-  // and these are the modal window vars
-  const inputName = modalWindow.querySelector("#modal__input_field_name");
-  const inputDesc = modalWindow.querySelector(
-    "#modal__input_field_description"
-  );
-  inputName.value = profileName.textContent; // using separate let vars aren't necessary
-  inputDesc.value = profileDesc.textContent;
-
-  modalWindow.classList.add("modal_opened"); // for rendering purposes, here it's the last line
+  // using separate let vars aren't necessary
+  inputProfileName.value = profileName.textContent;
+  inputProfileDesc.value = profileDesc.textContent;
+  profileModal.classList.add("modal_opened"); // for rendering purposes, here it's the last line
 }
 
-function clickCloseProfileModal() {
-  modalWindow.classList.remove("modal_opened");
+profileModal.addEventListener("submit", saveProfileModal); // saves the need to tie an event listener to a button, as long as the html button type is 'submit'
+
+function saveProfileModal(event) {
+  event.preventDefault();
+  // update from profile modal to profile page
+  profileName.textContent = inputProfileName.value;
+  profileDesc.textContent = inputProfileDesc.value;
+  closeProfileModal();
+}
+
+function closeProfileModal() {
+  profileModal.classList.remove("modal_opened");
 }
