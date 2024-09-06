@@ -83,7 +83,7 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 601px) {
   .modal__container {
     padding: 25px 22px;
     width: 282px;
