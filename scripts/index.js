@@ -1,27 +1,27 @@
 let initialCards = [
   {
     name: "Harbor Springs",
-    link: "../images/cards/harbor-springs.jpg",
+    link: "images/cards/harbor-springs.jpg",
   },
   {
     name: "Downtown Chicago",
-    link: "../images/cards/chicago.jpg",
+    link: "images/cards/chicago.jpg",
   },
   {
     name: "Bethlehem",
-    link: "../images/cards/bethlehem.jpg",
+    link: "images/cards/bethlehem.jpg",
   },
   {
     name: "Perrysburg",
-    link: "../images/cards/perrysburg.jpg",
+    link: "images/cards/perrysburg.jpg",
   },
   {
     name: "Venice Beach",
-    link: "../images/cards/venice-beach.jpg",
+    link: "images/cards/venice-beach.jpg",
   },
   {
     name: "Palace of Fine Arts",
-    link: "../images/cards/palace-finearts.jpg",
+    link: "images/cards/palace-finearts.jpg",
   },
 ];
 
