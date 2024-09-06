@@ -28,7 +28,8 @@ This website was made with responsive design in mind, providing navigation and a
 
 ### Desktop
 
-![desktop view](images/demo/screenshot_960.png "Desktop view")
+![desktop view](images/demo/screenshot_960_1.png "Desktop view")
+![desktop view](images/demo/screenshot_960_2.png "Edit profile modal window")
 
 ### Video
 
