@@ -35,7 +35,9 @@ const buttonCloseProfileModal = modalWindowProfile.querySelector(
 
 buttonEditProfile.addEventListener("click", openProfileModal);
 buttonCloseProfileModal.addEventListener("click", closeProfileModal); // 2 ways to close: x and save
-modalWindowProfile.addEventListener("submit", saveProfileModal); // saves the need to tie an event listener to a button, as long as the html button type is 'submit'
+modalWindowProfile.addEventListener("submit", saveProfileModal);
+// saves the need to tie an event listener to a button, as long as the html button type is 'submit'
+// (i) the submit is tied to the form
 
 // these are the HTML page vars...
 const profileName = profile.querySelector(".profile__name");
@@ -75,9 +77,9 @@ function closeProfileModal() {
 }
 
 function getCardElement(data) {
-  let cardElement = cardTemplate.querySelector(".card").cloneNode(true); // cloning in a loop is fine
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // cloning in a loop is fine
   cardElement.querySelector(".card__image").src = data.link;
-  cardElement.querySelector(".card__image").alt = data.name;
+  cardElement.querySelector(".card__image").alt = data.name; // use a var in-case this needs to be called twice
   cardElement.querySelector(".card__title").textContent = data.name;
   return cardElement;
 }
