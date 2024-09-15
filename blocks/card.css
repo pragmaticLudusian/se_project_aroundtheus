@@ -4,6 +4,24 @@
   color: #000;
   border-radius: 10px;
   overflow: hidden;
+  position: relative;
+}
+
+.card__delete-button {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  background: url("../images/delete.svg") no-repeat center/100%;
+  border: 0;
+  padding: 0;
+  width: 18px;
+  height: 20px;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.card__delete-button:hover {
+  opacity: 0.6;
 }
 
 .card__image {

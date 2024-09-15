@@ -37,6 +37,11 @@ function getCardElement(data) {
   cardImage.alt = data.name;
   cardElement.querySelector(".card__title").textContent = data.name;
 
+  const cardDelete = cardElement.querySelector(".card__delete-button");
+  cardDelete.addEventListener("click", (event) => {
+    event.target.parentElement.remove();
+  });
+
   const cardLike = cardElement.querySelector(".card__like");
   cardLike.addEventListener("click", (event) => {
     event.target.classList.toggle("card__like_active");
