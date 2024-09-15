@@ -105,7 +105,9 @@ buttonCloseCardAddWindow.addEventListener("click", closeCardAddModal);
 modalWindowCardAdd.addEventListener("submit", (event) => {
   event.preventDefault();
   const card = { name: inputCardTitle.value, link: inputCardLink.value };
-  cardsGallery.prepend(getCardElement(card));
+  if (card.name && card.link) cardsGallery.prepend(getCardElement(card)); // prevents empty card elements
+  inputCardTitle.value = "";
+  inputCardLink.value = "";
   closeCardAddModal();
 });
 
