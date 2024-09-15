@@ -28,9 +28,7 @@ let initialCards = [
 // init the gallery cards
 const cardsGallery = document.querySelector(".gallery__cards");
 const cardTemplate = document.querySelector("#card-template").content; // as a template, its HTML content won't suffice without using the .content property
-initialCards.forEach((card) => {
-  cardsGallery.append(getCardElement(card));
-});
+initialCards.forEach((card) => cardsGallery.append(getCardElement(card)));
 
 function getCardElement(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // cloning in a loop is fine
@@ -38,6 +36,12 @@ function getCardElement(data) {
   cardImage.src = data.link;
   cardImage.alt = data.name;
   cardElement.querySelector(".card__title").textContent = data.name;
+
+  const cardLike = cardElement.querySelector(".card__like");
+  cardLike.addEventListener("click", (event) => {
+    event.target.classList.toggle("card__like_active");
+  });
+
   return cardElement;
 }
 
@@ -105,10 +109,13 @@ buttonCloseCardAddWindow.addEventListener("click", closeCardAddModal);
 modalWindowCardAdd.addEventListener("submit", (event) => {
   event.preventDefault();
   const card = { name: inputCardTitle.value, link: inputCardLink.value };
-  if (card.name && card.link) cardsGallery.prepend(getCardElement(card)); // prevents empty card elements
-  inputCardTitle.value = "";
-  inputCardLink.value = "";
-  closeCardAddModal();
+  if (card.name && card.link) {
+    // prevents empty card elements
+    cardsGallery.prepend(getCardElement(card));
+    inputCardTitle.value = "";
+    inputCardLink.value = "";
+    closeCardAddModal();
+  }
 });
 
 function closeCardAddModal() {

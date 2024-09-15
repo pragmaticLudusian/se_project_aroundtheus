@@ -29,7 +29,7 @@
 }
 
 .card__like {
-  background: url(../images/like.svg) no-repeat center/100%;
+  background: url(../images/like_off.svg) no-repeat center/100%;
   padding: 0;
   border: 0;
   width: 20px;
@@ -41,4 +41,8 @@
 
 .card__like:hover {
   opacity: 0.5;
+}
+
+.card__like_active {
+  background: url(../images/like_on.svg) no-repeat center/100%;
 }
