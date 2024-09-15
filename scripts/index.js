@@ -53,9 +53,9 @@ const inputProfileDescription = modalWindowProfile.querySelector(
 // init the gallery cards
 const cardsGallery = document.querySelector(".gallery__cards");
 const cardTemplate = document.querySelector("#card-template").content; // as a template, its HTML content won't suffice without using the .content property
-for (let card of initialCards) {
+initialCards.forEach((card) => {
   cardsGallery.append(getCardElement(card));
-}
+});
 
 function openProfileModal() {
   // using separate let vars aren't necessary
@@ -78,8 +78,9 @@ function closeProfileModal() {
 
 function getCardElement(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // cloning in a loop is fine
-  cardElement.querySelector(".card__image").src = data.link;
-  cardElement.querySelector(".card__image").alt = data.name; // use a var in-case this needs to be called twice
+  const cardImage = cardElement.querySelector(".card__image"); // to change 2 attribs, a var would be recommended
+  cardImage.src = data.link;
+  cardImage.alt = data.name;
   cardElement.querySelector(".card__title").textContent = data.name;
   return cardElement;
 }
