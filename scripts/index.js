@@ -25,17 +25,30 @@ let initialCards = [
   },
 ];
 
+/* PROFILE SECTION */
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
 
-const modalWindowProfile = document.querySelector("#modal-profile"); // account for potentially another future modal window
+const modalWindowProfile = document.querySelector("#modal_profile");
 const buttonCloseProfileModal = modalWindowProfile.querySelector(
-  "#modal-profile-close"
+  "#modal_profile_close"
 );
 
-buttonEditProfile.addEventListener("click", openProfileModal);
+buttonEditProfile.addEventListener("click", () => {
+  // using separate let vars aren't necessary
+  inputProfileName.value = profileName.textContent;
+  inputProfileDescription.value = profileDescription.textContent;
+  modalWindowProfile.classList.add("modal_opened"); // for rendering purposes, here it's the last line
+});
+
 buttonCloseProfileModal.addEventListener("click", closeProfileModal); // 2 ways to close: x and save
-modalWindowProfile.addEventListener("submit", saveProfileModal);
+modalWindowProfile.addEventListener("submit", (event)=>{
+  event.preventDefault();
+  // update from profile modal to profile page
+  profileName.textContent = inputProfileName.value;
+  profileDescription.textContent = inputProfileDescription.value;
+  closeProfileModal();
+});
 // saves the need to tie an event listener to a button, as long as the html button type is 'submit'
 // (i) the submit is tied to the form
 
@@ -44,11 +57,30 @@ const profileName = profile.querySelector(".profile__name");
 const profileDescription = profile.querySelector(".profile__description");
 // and these are the modal window vars
 const inputProfileName = modalWindowProfile.querySelector(
-  "#modal-profile-name"
+  "#modal_profile_name"
 );
 const inputProfileDescription = modalWindowProfile.querySelector(
-  "#modal-profile-description"
+  "#modal_profile_description"
 );
+
+function closeProfileModal() {
+  modalWindowProfile.classList.remove("modal_opened");
+}
+/* END PROFILE SECTION */
+
+/* CARD ADD SECTION */
+const buttonAddCard = profile.querySelector(".profile__add-button");
+const modalCardAddWindow = document.querySelector("#modal_card-add");
+const buttonCloseCardAddWindow = modalCardAddWindow.querySelector("#modal_card-add_close");
+
+buttonAddCard.addEventListener("click", () => {
+  modalCardAddWindow.classList.add("modal_opened");
+});
+
+buttonCloseCardAddWindow.addEventListener("click", () => {
+  modalCardAddWindow.classList.remove("modal_opened");
+});
+/* END CARD ADD SECTION */
 
 // init the gallery cards
 const cardsGallery = document.querySelector(".gallery__cards");
@@ -56,25 +88,6 @@ const cardTemplate = document.querySelector("#card-template").content; // as a t
 initialCards.forEach((card) => {
   cardsGallery.append(getCardElement(card));
 });
-
-function openProfileModal() {
-  // using separate let vars aren't necessary
-  inputProfileName.value = profileName.textContent;
-  inputProfileDescription.value = profileDescription.textContent;
-  modalWindowProfile.classList.add("modal_opened"); // for rendering purposes, here it's the last line
-}
-
-function saveProfileModal(event) {
-  event.preventDefault();
-  // update from profile modal to profile page
-  profileName.textContent = inputProfileName.value;
-  profileDescription.textContent = inputProfileDescription.value;
-  closeProfileModal();
-}
-
-function closeProfileModal() {
-  modalWindowProfile.classList.remove("modal_opened");
-}
 
 function getCardElement(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // cloning in a loop is fine
