@@ -114,16 +114,13 @@ buttonCloseCardAddWindow.addEventListener("click", closeCardAddModal);
 modalWindowCardAdd.addEventListener("submit", (event) => {
   event.preventDefault();
   const card = { name: inputCardTitle.value, link: inputCardLink.value };
-  if (card.name && card.link) {
-    // prevents empty card elements
-    cardsGallery.prepend(getCardElement(card));
-    inputCardTitle.value = "";
-    inputCardLink.value = "";
-    closeCardAddModal();
-  }
+  cardsGallery.prepend(getCardElement(card));
+  closeCardAddModal(); // empty inputs once rendered closed
 });
 
 function closeCardAddModal() {
   modalWindowCardAdd.classList.remove("modal_opened");
+  inputCardTitle.value = "";
+  inputCardLink.value = "";
 }
 /* END CARD ADD SECTION */
