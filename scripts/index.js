@@ -24,6 +24,15 @@ let initialCards = [
     link: "images/cards/palace-finearts.jpg",
   },
 ];
+// init modal windows
+const modalWindowCardView = document.querySelector("#modal_card-view");
+const closeCardViewModal = modalWindowCardView.querySelector(
+  "#modal_card-view_close"
+);
+
+closeCardViewModal.addEventListener("click", () => {
+  modalWindowCardView.classList.remove("modal_opened");
+});
 
 // init the gallery cards
 const cardsGallery = document.querySelector(".gallery__cards");
@@ -45,6 +54,15 @@ function getCardElement(data) {
   const cardLike = cardElement.querySelector(".card__like");
   cardLike.addEventListener("click", (event) => {
     event.target.classList.toggle("card__like_active");
+  });
+
+  cardImage.addEventListener("click", (event) => {
+    const modalImage = modalWindowCardView.querySelector(".modal__image");
+    modalImage.src = event.target.src;
+    modalImage.alt = event.target.alt;
+    modalWindowCardView.querySelector(".modal__caption").textContent =
+      event.target.alt;
+    modalWindowCardView.classList.add("modal_opened");
   });
 
   return cardElement;
