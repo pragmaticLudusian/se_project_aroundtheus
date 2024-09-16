@@ -50,7 +50,7 @@
       <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
     </footer>
     <div class="modal" id="modal_profile">
-      <form class="modal__container">
+      <form class="modal__container modal__container_type_form">
         <button
           type="button"
           class="modal__close-button"
@@ -81,7 +81,7 @@
       </form>
     </div>
     <div class="modal" id="modal_card-add">
-      <form class="modal__container">
+      <form class="modal__container modal__container_type_form">
         <button
           type="button"
           class="modal__close-button"
@@ -110,6 +110,17 @@
           </button>
         </fieldset>
       </form>
+    </div>
+    <div class="modal" id="modal_card-view">
+      <div class="modal__container modal__container_type_image">
+        <button
+          type="button"
+          class="modal__close-button"
+          id="modal_card-view_close"
+        ></button>
+        <img class="modal__image" />
+        <p class="modal__caption"></p>
+      </div>
     </div>
     <template id="card-template">
       <li class="card">
