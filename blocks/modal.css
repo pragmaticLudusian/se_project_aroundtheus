@@ -1,17 +1,25 @@
 .modal {
-  display: none;
+  /* display: none; is detrimental to transition/animation in both ways:
+      1. @keyframes method seems to only work one way or locks it w/out display:none
+      2. transition with opacity+visibility w/ delay instead of display:none works both ways at the cost of causing a brief glitch upon page load */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+  transition: visibility 0s 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .modal_opened {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s, opacity 0.4s ease;
 }
 
 .modal__container {
