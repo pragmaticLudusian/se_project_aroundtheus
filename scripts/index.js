@@ -38,6 +38,7 @@ function closePopup(popup) {
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
 const modalWindowProfile = document.querySelector("#modal_profile");
+const formModalProfile = modalWindowProfile.querySelector(".modal__container"); // for submit handling
 const buttonCloseProfileModal = modalWindowProfile.querySelector(
   "#modal_profile_close"
 );
@@ -45,23 +46,20 @@ const buttonCloseProfileModal = modalWindowProfile.querySelector(
 const profileName = profile.querySelector(".profile__name");
 const profileDescription = profile.querySelector(".profile__description");
 // modal window vars
-const inputProfileName = modalWindowProfile.querySelector(
-  "#modal_profile_name"
-);
-const inputProfileDescription = modalWindowProfile.querySelector(
+const inputProfileName = formModalProfile.querySelector("#modal_profile_name");
+const inputProfileDescription = formModalProfile.querySelector(
   "#modal_profile_description"
 );
 
 // init card add and related modal window
 const buttonAddCard = profile.querySelector(".profile__add-button");
 const modalWindowCardAdd = document.querySelector("#modal_card-add");
+const formModalCardAdd = modalWindowCardAdd.querySelector(".modal__container"); // for submit handling
 const buttonCloseCardAddWindow = modalWindowCardAdd.querySelector(
   "#modal_card-add_close"
 );
-const inputCardTitle = modalWindowCardAdd.querySelector(
-  "#modal_card-add_title"
-);
-const inputCardLink = modalWindowCardAdd.querySelector("#modal_card-add_link");
+const inputCardTitle = formModalCardAdd.querySelector("#modal_card-add_title");
+const inputCardLink = formModalCardAdd.querySelector("#modal_card-add_link");
 
 // init card view modal window
 const modalWindowCardView = document.querySelector("#modal_card-view");
@@ -120,8 +118,8 @@ buttonCloseProfileModal.addEventListener("click", () =>
   closePopup(modalWindowProfile)
 );
 
-modalWindowProfile.addEventListener("submit", (event) => {
-  // submit is tied to the form by the html button that action's tied to submit
+formModalProfile.addEventListener("submit", (event) => {
+  // although the submit action could be tied to the window modal and it'd still work, semantically it's meant to be handled to the <form>
   event.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputProfileDescription.value;
