@@ -58,6 +58,7 @@ const formModalCardAdd = modalWindowCardAdd.querySelector(".modal__container"); 
 const buttonCloseCardAddWindow = modalWindowCardAdd.querySelector(
   "#modal_card-add_close"
 );
+// modal window vars
 const inputCardTitle = formModalCardAdd.querySelector("#modal_card-add_title");
 const inputCardLink = formModalCardAdd.querySelector("#modal_card-add_link");
 
@@ -76,7 +77,12 @@ buttonCloseCardViewModal.addEventListener("click", () =>
 // init the gallery cards and build all derivative actions upon page load
 const cardsGallery = document.querySelector(".gallery__cards");
 const cardTemplate = document.querySelector("#card-template").content;
-initialCards.forEach((card) => cardsGallery.append(getCardElement(card)));
+initialCards.forEach((card) => cardRender(card)); // first it'll render the card being passed with the append method by default, then it'll setup all the necessary with the getCardElement()
+
+function cardRender(item, method = "append") {
+  const cardElement = getCardElement(item);
+  cardsGallery[method](cardElement); // not an array, but a var acting for method
+}
 
 function getCardElement(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // cloning in a loop is the way
@@ -136,7 +142,7 @@ buttonCloseCardAddWindow.addEventListener("click", () =>
 modalWindowCardAdd.addEventListener("submit", (event) => {
   event.preventDefault();
   const card = { name: inputCardTitle.value, link: inputCardLink.value };
-  cardsGallery.prepend(getCardElement(card));
+  cardRender(card, "prepend");
   closePopup(modalWindowCardAdd);
   // empty inputs once rendered closed AND actually added instead of not
   inputCardTitle.value = "";
