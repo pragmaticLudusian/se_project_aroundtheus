@@ -65,6 +65,9 @@ const inputCardLink = modalWindowCardAdd.querySelector("#modal_card-add_link");
 
 // init card view modal window
 const modalWindowCardView = document.querySelector("#modal_card-view");
+const modalImage = modalWindowCardView.querySelector(".modal__image");
+const modalCaption = modalWindowCardView.querySelector(".modal__caption");
+// since these are singular elements that would change content for many images/captions, qS should only be used once here
 const buttonCloseCardViewModal = modalWindowCardView.querySelector(
   "#modal_card-view_close"
 );
@@ -95,11 +98,9 @@ function getCardElement(data) {
   });
 
   cardImage.addEventListener("click", (event) => {
-    const modalImage = modalWindowCardView.querySelector(".modal__image");
     modalImage.src = event.target.src;
     modalImage.alt = event.target.alt;
-    modalWindowCardView.querySelector(".modal__caption").textContent =
-      event.target.alt;
+    modalCaption.textContent = event.target.alt;
     openPopup(modalWindowCardView);
   });
 
