@@ -38,7 +38,7 @@ function closePopup(popup) {
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
 const modalWindowProfile = document.querySelector("#modal_profile");
-const formModalProfile = modalWindowProfile.querySelector(".modal__container"); // for submit handling
+const formModalProfile = document.forms["profile-form"]; // for submit handling using designated collection of forms via name/id
 const buttonCloseProfileModal = modalWindowProfile.querySelector(
   "#modal_profile_close"
 );
@@ -54,7 +54,7 @@ const inputProfileDescription = formModalProfile.querySelector(
 // init card add and related modal window
 const buttonAddCard = profile.querySelector(".profile__add-button");
 const modalWindowCardAdd = document.querySelector("#modal_card-add");
-const formModalCardAdd = modalWindowCardAdd.querySelector(".modal__container"); // for submit handling
+const formModalCardAdd = document.forms["card-form"];
 const buttonCloseCardAddWindow = modalWindowCardAdd.querySelector(
   "#modal_card-add_close"
 );
