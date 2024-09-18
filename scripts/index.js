@@ -26,6 +26,14 @@ const initialCards = [
   },
 ];
 
+// universal popup functions
+function openPopup(popup) {
+  popup.classList.add("modal_opened");
+}
+function closePopup(popup) {
+  popup.classList.remove("modal_opened");
+}
+
 // init profile editing and related modal window
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
@@ -60,9 +68,9 @@ const modalWindowCardView = document.querySelector("#modal_card-view");
 const buttonCloseCardViewModal = modalWindowCardView.querySelector(
   "#modal_card-view_close"
 );
-buttonCloseCardViewModal.addEventListener("click", () => {
-  modalWindowCardView.classList.remove("modal_opened");
-});
+buttonCloseCardViewModal.addEventListener("click", () =>
+  closePopup(modalWindowCardView)
+); // for callback func to call forward a func, it's still would need to have a function body
 
 // init the gallery cards and build all derivative actions upon page load
 const cardsGallery = document.querySelector(".gallery__cards");
@@ -78,7 +86,7 @@ function getCardElement(data) {
 
   const cardDelete = cardElement.querySelector(".card__delete-button");
   cardDelete.addEventListener("click", (event) => {
-    event.target.parentElement.remove();
+    event.target.closest(".card").remove();
   });
 
   const cardLike = cardElement.querySelector(".card__like");
@@ -92,7 +100,7 @@ function getCardElement(data) {
     modalImage.alt = event.target.alt;
     modalWindowCardView.querySelector(".modal__caption").textContent =
       event.target.alt;
-    modalWindowCardView.classList.add("modal_opened");
+    openPopup(modalWindowCardView);
   });
 
   return cardElement;
@@ -104,41 +112,35 @@ buttonEditProfile.addEventListener("click", () => {
   // using separate let vars aren't necessary
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
-  modalWindowProfile.classList.add("modal_opened"); // for rendering purposes, here it's the last line
+  openPopup(modalWindowProfile); // for rendering purposes, here it's the last line
 });
 
-buttonCloseProfileModal.addEventListener("click", closeProfileModal); // 2 ways to close: x and save
+buttonCloseProfileModal.addEventListener("click", () =>
+  closePopup(modalWindowProfile)
+);
 
 modalWindowProfile.addEventListener("submit", (event) => {
   // submit is tied to the form by the html button that action's tied to submit
   event.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputProfileDescription.value;
-  closeProfileModal();
+  closePopup(modalWindowProfile);
 });
-
-function closeProfileModal() {
-  modalWindowProfile.classList.remove("modal_opened");
-}
 /* END PROFILE SECTION */
 
 /* CARD ADD SECTION */
-buttonAddCard.addEventListener("click", () => {
-  modalWindowCardAdd.classList.add("modal_opened");
-});
-
-buttonCloseCardAddWindow.addEventListener("click", closeCardAddModal);
+buttonAddCard.addEventListener("click", () => openPopup(modalWindowCardAdd));
+buttonCloseCardAddWindow.addEventListener("click", () =>
+  closePopup(modalWindowCardAdd)
+);
 
 modalWindowCardAdd.addEventListener("submit", (event) => {
   event.preventDefault();
   const card = { name: inputCardTitle.value, link: inputCardLink.value };
   cardsGallery.prepend(getCardElement(card));
-  closeCardAddModal(); // empty inputs once rendered closed
-});
-
-function closeCardAddModal() {
-  modalWindowCardAdd.classList.remove("modal_opened");
+  closePopup(modalWindowCardAdd);
+  // empty inputs once rendered closed AND actually added instead of not
   inputCardTitle.value = "";
   inputCardLink.value = "";
-}
+});
 /* END CARD ADD SECTION */
