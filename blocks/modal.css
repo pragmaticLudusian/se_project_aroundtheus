@@ -90,12 +90,23 @@
   background-color: #000;
   color: #fff;
   font-size: 18px;
+}
+
+.modal__save-button_active {
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
-.modal__save-button:hover {
+.modal__save-button_active:hover {
   opacity: 0.8;
+}
+
+.modal__save-button_inactive {
+  opacity: 0.2;
+  border: 1px solid #000;
+  background-color: transparent;
+  color: #000;
+  cursor: unset;
 }
 
 .modal__image {
