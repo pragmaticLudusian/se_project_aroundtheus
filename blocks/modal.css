@@ -81,7 +81,7 @@
   margin: 0;
 }
 
-.modal__save {
+.modal__save-button {
   margin-top: 48px;
   padding: 16px;
   width: 100%;
@@ -94,7 +94,7 @@
   cursor: pointer;
 }
 
-.modal__save:hover {
+.modal__save-button:hover {
   opacity: 0.8;
 }
 
@@ -136,7 +136,7 @@
     font-size: 18px;
   }
 
-  .modal__save {
+  .modal__save-button {
     margin-top: 45px;
     padding: 14px;
     font-size: 14px;
