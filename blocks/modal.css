@@ -63,76 +63,6 @@
   font-size: 24px;
 }
 
-.modal__fieldset {
-  padding: 0;
-  border: 0;
-}
-
-.modal__input-container {
-  position: relative;
-  margin-bottom: 30px;
-}
-
-.modal__input-container:last-of-type {
-  margin: 0;
-}
-
-.modal__input {
-  width: 100%;
-  padding: 0 0 14px 0;
-  border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  font-size: 14px;
-  position: relative;
-}
-
-.modal__input:invalid {
-  border-bottom: 1px solid #f00;
-}
-
-.modal__error-message {
-  color: #f00;
-  font-size: 12px;
-  line-height: 1.2;
-  position: absolute; /* set this way for wrapping messages to not depend on height */
-  top: calc(
-    (14px + 3px) * 2 + 3px
-  ); /* (input height incl. compensation) + spacer between msg and next input */
-  left: 0;
-  visibility: hidden;
-}
-
-.modal__error-message_active {
-  visibility: visible;
-}
-
-.modal__save-button {
-  margin-top: 48px;
-  padding: 16px;
-  width: 100%;
-  border-radius: 2px;
-  font-size: 18px;
-}
-
-.modal__save-button_active {
-  border: 0;
-  background-color: #000;
-  color: #fff;
-  transition: opacity 0.4s ease;
-  cursor: pointer;
-}
-
-.modal__save-button_active:hover {
-  opacity: 0.8;
-}
-
-.modal__save-button_inactive {
-  opacity: 0.2;
-  border: 1px solid #000;
-  background-color: transparent;
-  color: #000;
-}
-
 .modal__image {
   max-width: 75vw;
   max-height: 75vh;
@@ -171,7 +101,7 @@
     font-size: 18px;
   }
 
-  .modal__save-button {
+  .form__save-button {
     margin-top: 45px;
     padding: 14px;
     font-size: 14px;

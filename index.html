@@ -61,39 +61,36 @@
           id="modal_profile_close"
         ></button>
         <h2 class="modal__title">Edit profile</h2>
-        <fieldset class="modal__fieldset">
-          <div class="modal__input-container">
+        <fieldset class="form">
+          <div class="form__input-container">
             <input
               type="text"
               name="name"
               id="profile_name"
-              class="modal__input"
+              class="form__input"
               placeholder="Name"
               required
               minlength="2"
               maxlength="40"
             />
-            <span class="modal__error-message" id="profile_name_error"></span>
+            <span class="form__error" id="profile_name_error"></span>
           </div>
-          <div class="modal__input-container">
+          <div class="form__input-container">
             <input
               type="text"
               name="description"
               id="profile_description"
-              class="modal__input"
+              class="form__input"
               placeholder="Description"
               required
               minlength="2"
               maxlength="200"
             />
-            <span
-              class="modal__error-message"
-              id="profile_description_error"
-            ></span>
+            <span class="form__error" id="profile_description_error"></span>
           </div>
           <button
             type="submit"
-            class="modal__save-button modal__save-button_active"
+            class="form__save-button form__save-button_active"
             id="profile_save"
           >
             Save
@@ -113,34 +110,34 @@
           id="modal_card-add_close"
         ></button>
         <h2 class="modal__title">New place</h2>
-        <fieldset class="modal__fieldset">
-          <div class="modal__input-container">
+        <fieldset class="form">
+          <div class="form__input-container">
             <input
               type="text"
               name="name"
               id="card-add_title"
-              class="modal__input"
+              class="form__input"
               placeholder="Title"
               required
               minlength="1"
               maxlength="30"
             />
-            <span class="modal__error-message" id="card-add_title_error"></span>
+            <span class="form__error" id="card-add_title_error"></span>
           </div>
-          <div class="modal__input-container">
+          <div class="form__input-container">
             <input
               type="url"
               name="link"
               id="card-add_link"
-              class="modal__input"
+              class="form__input"
               placeholder="Image link"
               required
             />
-            <span class="modal__error-message" id="card-add_link_error"></span>
+            <span class="form__error" id="card-add_link_error"></span>
           </div>
           <button
             type="submit"
-            class="modal__save-button modal__save-button_inactive"
+            class="form__save-button form__save-button_inactive"
             id="card-add_save"
             disabled
           >
