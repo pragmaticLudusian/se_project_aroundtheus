@@ -38,29 +38,29 @@ function closePopup(popup) {
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
 const modalWindowProfile = document.querySelector("#modal_profile");
-const formModalProfile = document.forms["profile-form"]; // for submit handling using designated collection of forms via name/id
 const buttonCloseProfileModal = modalWindowProfile.querySelector(
   "#modal_profile_close"
 );
+const formProfile = document.forms["profile-form"]; // for submit handling using designated collection of forms via name/id
+
 // html page vars
 const profileName = profile.querySelector(".profile__name");
 const profileDescription = profile.querySelector(".profile__description");
 // modal window vars
-const inputProfileName = formModalProfile.querySelector("#modal_profile_name");
-const inputProfileDescription = formModalProfile.querySelector(
-  "#modal_profile_description"
-);
+const inputProfileName = formProfile["name"]; // = document.forms["profile"]["name"]
+const inputProfileDescription = formProfile["description"];
 
 // init card add and related modal window
 const buttonAddCard = profile.querySelector(".profile__add-button");
 const modalWindowCardAdd = document.querySelector("#modal_card-add");
-const formModalCardAdd = document.forms["card-form"];
 const buttonCloseCardAddWindow = modalWindowCardAdd.querySelector(
   "#modal_card-add_close"
 );
+const formCardAdd = document.forms["card-form"];
+
 // modal window vars
-const inputCardTitle = formModalCardAdd.querySelector("#modal_card-add_title");
-const inputCardLink = formModalCardAdd.querySelector("#modal_card-add_link");
+const inputCardTitle = formCardAdd["title"];
+const inputCardLink = formCardAdd["link"];
 
 // init card view modal window
 const modalWindowCardView = document.querySelector("#modal_card-view");
@@ -81,7 +81,7 @@ initialCards.forEach((card) => cardRender(card)); // first it'll render the card
 
 function cardRender(item, method = "append") {
   const cardElement = getCardElement(item);
-  cardsGallery[method](cardElement); // not an array, but a var acting for method
+  cardsGallery[method](cardElement); // not an array, but a var acting for .method
 }
 
 function getCardElement(data) {
@@ -124,7 +124,7 @@ buttonCloseProfileModal.addEventListener("click", () =>
   closePopup(modalWindowProfile)
 );
 
-formModalProfile.addEventListener("submit", (event) => {
+formProfile.addEventListener("submit", (event) => {
   // although the submit action could be tied to the window modal and it'd still work, semantically it's meant to be handled to the <form>
   event.preventDefault();
   profileName.textContent = inputProfileName.value;

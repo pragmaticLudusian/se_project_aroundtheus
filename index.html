@@ -53,6 +53,7 @@
       <form
         class="modal__container modal__container_type_form"
         id="profile-form"
+        novalidate
       >
         <button
           type="button"
@@ -64,38 +65,33 @@
           <div class="modal__input-container">
             <input
               type="text"
-              name="modal__profile_input_name"
-              id="modal_profile_name"
-              class="modal__input modal__input_status_error"
+              name="name"
+              id="profile_name"
+              class="modal__input"
               placeholder="Name"
               required
               minlength="2"
               maxlength="40"
             />
-            <span class="modal__error-message"
-              >Please use at least 2 characters )you are currently using 1
-              characters).</span
-            >
+            <span class="modal__error-message"></span>
           </div>
           <div class="modal__input-container">
             <input
               type="text"
-              name="modal__profile_input_description"
-              id="modal_profile_description"
+              name="description"
+              id="profile_description"
               class="modal__input"
               placeholder="Description"
               required
               minlength="2"
               maxlength="200"
             />
-            <span class="modal__error-message"
-              >Please fill out this field.</span
-            >
+            <span class="modal__error-message"></span>
           </div>
           <button
             type="submit"
             class="modal__save-button modal__save-button_active"
-            id="modal_profile_save"
+            id="profile_save"
           >
             Save
           </button>
@@ -103,7 +99,11 @@
       </form>
     </div>
     <div class="modal" id="modal_card-add">
-      <form class="modal__container modal__container_type_form" id="card-form">
+      <form
+        class="modal__container modal__container_type_form"
+        id="card-form"
+        novalidate
+      >
         <button
           type="button"
           class="modal__close-button"
@@ -114,36 +114,32 @@
           <div class="modal__input-container">
             <input
               type="text"
-              name="modal__card-add_input_title"
-              id="modal_card-add_title"
+              name="name"
+              id="card-add_title"
               class="modal__input"
               placeholder="Title"
               required
               minlength="1"
               maxlength="30"
             />
-            <span class="modal__error-message"
-              >Please fill out this field.</span
-            >
+            <span class="modal__error-message"></span>
           </div>
-
           <div class="modal__input-container">
             <input
               type="url"
-              name="modal__card-add_input_link"
-              id="modal_card-add_link"
+              name="link"
+              id="card-add_link"
               class="modal__input"
               placeholder="Image link"
               required
             />
-            <span class="modal__error-message"
-              >Please fill out this field.</span
-            >
+            <span class="modal__error-message"></span>
           </div>
           <button
             type="submit"
             class="modal__save-button modal__save-button_inactive"
-            id="modal_card-add_save"
+            id="card-add_save"
+            disabled
           >
             Create
           </button>
@@ -172,5 +168,6 @@
       </li>
     </template>
     <script src="scripts/index.js"></script>
+    <script src="scripts/validate.js"></script>
   </body>
 </html>

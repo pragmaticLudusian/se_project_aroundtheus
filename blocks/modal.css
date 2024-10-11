@@ -86,7 +86,7 @@
   position: relative;
 }
 
-.modal__input_status_error {
+.modal__input:invalid {
   border-bottom: 1px solid #f00;
 }
 
@@ -126,7 +126,6 @@
   border: 1px solid #000;
   background-color: transparent;
   color: #000;
-  cursor: unset;
 }
 
 .modal__image {
