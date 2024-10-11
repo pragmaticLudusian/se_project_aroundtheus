@@ -94,11 +94,16 @@
   color: #f00;
   font-size: 12px;
   line-height: 1.2;
-  position: absolute;
+  position: absolute; /* set this way for wrapping messages to not depend on height */
   top: calc(
     (14px + 3px) * 2 + 3px
   ); /* (input height incl. compensation) + spacer between msg and next input */
   left: 0;
+  visibility: hidden;
+}
+
+.modal__error-message_active {
+  visibility: visible;
 }
 
 .modal__save-button {

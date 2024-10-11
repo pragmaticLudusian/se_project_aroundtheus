@@ -34,31 +34,30 @@ function closePopup(popup) {
   popup.classList.remove("modal_opened");
 }
 
-// init profile editing and related modal window
+// init profile editing & related modal window
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
 const modalWindowProfile = document.querySelector("#modal_profile");
 const buttonCloseProfileModal = modalWindowProfile.querySelector(
   "#modal_profile_close"
 );
-const formProfile = document.forms["profile-form"]; // for submit handling using designated collection of forms via name/id
-
-// html page vars
 const profileName = profile.querySelector(".profile__name");
 const profileDescription = profile.querySelector(".profile__description");
-// modal window vars
+
+// profile form & input vars
+const formProfile = document.forms["profile-form"];
 const inputProfileName = formProfile["name"]; // = document.forms["profile"]["name"]
 const inputProfileDescription = formProfile["description"];
 
-// init card add and related modal window
+// init card add & related modal window
 const buttonAddCard = profile.querySelector(".profile__add-button");
 const modalWindowCardAdd = document.querySelector("#modal_card-add");
 const buttonCloseCardAddWindow = modalWindowCardAdd.querySelector(
   "#modal_card-add_close"
 );
-const formCardAdd = document.forms["card-form"];
 
-// modal window vars
+// card-add form & input vars
+const formCardAdd = document.forms["card-form"];
 const inputCardTitle = formCardAdd["title"];
 const inputCardLink = formCardAdd["link"];
 
