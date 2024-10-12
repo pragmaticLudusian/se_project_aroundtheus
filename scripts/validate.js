@@ -13,32 +13,21 @@ formList.forEach((formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(".form__input"));
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
-      const inputError = formElement.querySelector(`#${inputElement.id}_error`);
-      if (!inputElement.validity.valid) {
-        inputError.textContent = inputElement.validationMessage;
-        inputError.classList.add("form__error_active");
-        buttonProfileSave.classList.replace(
-          "form__save-button_active",
-          "form__save-button_inactive"
+      const buttonElement = formElement[`${formElement.id}_save`];
+      if (hasInvalidInput(inputList)) {
+        showInputError(
+          formElement,
+          inputElement,
+          inputElement.validationMessage
         );
-        buttonProfileSave.setAttribute("disabled", true);
+        disableButton(inputElement, buttonElement);
       } else {
-        buttonProfileSave.removeAttribute("disabled");
-        buttonProfileSave.classList.replace(
-          "form__save-button_inactive",
-          "form__save-button_active"
-        );
-        inputError.classList.remove("form__error_active");
-        inputError.textContent = "";
+        hideInputError(formElement, inputElement);
+        enableButton(inputElement, buttonElement);
       }
     });
   });
 });
-
-// function inputCheck(event) {
-//   console.log(event.target.validity.valid);
-//   console.log(event.target.validationMessage);
-// }
 
 /* roadmap
   enableValidation()
@@ -47,3 +36,37 @@ formList.forEach((formElement) => {
         show&hideInputError(formElem, inputElem, errMsg)
         toggleButtonState(inputElem, btnElem)
 */
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+function showInputError(formElement, inputElement, errorMessage) {
+  const inputError = formElement.querySelector(`#${inputElement.id}_error`);
+  inputError.classList.add("form__error_active");
+  inputError.textContent = errorMessage;
+}
+
+function hideInputError(formElement, inputElement) {
+  const inputError = formElement.querySelector(`#${inputElement.id}_error`);
+  inputError.classList.remove("form__error_active");
+  inputError.textContent = "";
+}
+
+function disableButton(inputElement, buttonElement) {
+  buttonElement.classList.replace(
+    "form__save-button_active",
+    "form__save-button_inactive"
+  );
+  buttonElement.setAttribute("disabled", true);
+}
+
+function enableButton(inputElement, buttonElement) {
+  buttonElement.removeAttribute("disabled");
+  buttonElement.classList.replace(
+    "form__save-button_inactive",
+    "form__save-button_active"
+  );
+}

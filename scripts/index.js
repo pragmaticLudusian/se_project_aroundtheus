@@ -48,7 +48,7 @@ const profileDescription = profile.querySelector(".profile__description");
 const formProfile = document.forms["profile_form"];
 const inputProfileName = formProfile["name"]; // = document.forms["profile"]["name"]
 const inputProfileDescription = formProfile["description"];
-const buttonProfileSave = formProfile["profile_save"];
+const buttonProfileSave = formProfile["profile_form_save"];
 
 // init card add & related modal window
 const buttonAddCard = profile.querySelector(".profile__add-button");
@@ -61,7 +61,7 @@ const buttonCloseCardAddWindow = modalWindowCardAdd.querySelector(
 const formCardAdd = document.forms["card-add_form"];
 const inputCardTitle = formCardAdd["title"];
 const inputCardLink = formCardAdd["link"];
-const buttonCardCreate = document.forms["card-add_create"];
+const buttonCardCreate = formCardAdd["card-add_form_save"];
 
 // init card view modal window
 const modalWindowCardView = document.querySelector("#modal_card-view");
