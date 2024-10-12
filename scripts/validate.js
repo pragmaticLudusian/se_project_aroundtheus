@@ -1,4 +1,4 @@
-function enableValidation() {
+function enableValidation(configObject) {
   const formList = Array.from(document.forms);
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (event) => {
@@ -8,7 +8,9 @@ function enableValidation() {
   });
 
   function setEventListeners(formElement) {
-    const inputList = Array.from(formElement.querySelectorAll(".form__input"));
+    const inputList = Array.from(
+      formElement.querySelectorAll(configObject["inputSelector"])
+    );
     inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         checkInputValidity(formElement, inputElement, inputList); // 3rd parameter is needed to pass through to check all inputs

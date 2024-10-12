@@ -48,7 +48,7 @@ const profileDescription = profile.querySelector(".profile__description");
 const formProfile = document.forms["profile_form"];
 const inputProfileName = formProfile["name"]; // = document.forms["profile"]["name"]
 const inputProfileDescription = formProfile["description"];
-const buttonProfileSave = formProfile["profile_form_save"];
+// const buttonProfileSave = formProfile["profile_form_save"];
 
 // init card add & related modal window
 const buttonAddCard = profile.querySelector(".profile__add-button");
@@ -61,7 +61,7 @@ const buttonCloseCardAddWindow = modalWindowCardAdd.querySelector(
 const formCardAdd = document.forms["card-add_form"];
 const inputCardTitle = formCardAdd["title"];
 const inputCardLink = formCardAdd["link"];
-const buttonCardCreate = formCardAdd["card-add_form_save"];
+// const buttonCardCreate = formCardAdd["card-add_form_save"];
 
 // init card view modal window
 const modalWindowCardView = document.querySelector("#modal_card-view");
@@ -151,4 +151,12 @@ modalWindowCardAdd.addEventListener("submit", (event) => {
 });
 /* END CARD ADD SECTION */
 
-enableValidation();
+enableValidation({
+  // formSelector: ".form", // handled through document.forms pseudo-array
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-button",
+  inactiveButtonClass: "form__save-button_inactive",
+  activeButtonClass: "form__save-button_active", // added extra due to CSS class handling
+  // inputErrorClass: "popup__input_type_error", // handled via CSS pseudo-class
+  errorClass: "form__error",
+});
