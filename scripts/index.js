@@ -150,3 +150,5 @@ modalWindowCardAdd.addEventListener("submit", (event) => {
   inputCardLink.value = "";
 });
 /* END CARD ADD SECTION */
+
+enableValidation();
