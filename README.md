@@ -13,6 +13,9 @@ This website was made with responsive design in mind, providing navigation and a
 - Grid
 - Media queries
 - The BEM methodology (page blocks + flat files)
+- Forms
+- Form validation (primarily via JS)
+- JS event delegation
 
 ## Previews
 
@@ -31,6 +34,7 @@ This website was made with responsive design in mind, providing navigation and a
 ![desktop view](images/demo/screenshot_960_1.png "Desktop view")
 ![desktop view](images/demo/screenshot_960_2.png "Edit profile modal window")
 ![desktop view](images/demo/screenshot_960_3.png "Card image view modal window")
+![desktop view](images/demo/screenshot_960_4.png "Form validation")
 
 ### Video
 
@@ -42,3 +46,4 @@ This website was made with responsive design in mind, providing navigation and a
   - [Alt. link in case the above's overloaded](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
 - [Figma link II - modal design](https://www.figma.com/file/EO5AaNCuzzFL7X5gSY7HwQ/Sprint-4_-Around-The-U.S.-_-desktop-%2B-mobile?t=3hvVWRz9LUFsxyNn-6)
 - [Figma link III - modal design continued](<https://www.figma.com/file/JFPhASqvZ5pBjQV2ouUlim/Sprint-5_-Around-The-U.S.-_-desktop-%2B-mobile-(Copy)?t=3hvVWRz9LUFsxyNn-6>)
+- [Figma link IV - form validation design](https://www.figma.com/file/N3zUeequnpvMX807FfYAZW/Sprint-6-Around-The-U.S.?node-id=0-1&t=88iVO80aevkZBggI-0)
