@@ -135,6 +135,9 @@ buttonEditProfile.addEventListener("click", () => {
   // using separate let vars aren't necessary
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
+  formProfile.querySelectorAll(".form__input").forEach((inputElement) => {
+    checkInputValidity(formProfile, inputElement);
+  }); // render input validity just before opening the popup
   openPopup(modalWindowProfile); // for rendering purposes, here it's the last line
 });
 
@@ -152,7 +155,12 @@ formProfile.addEventListener("submit", (event) => {
 /* END PROFILE SECTION */
 
 /* CARD ADD SECTION */
-buttonAddCard.addEventListener("click", () => openPopup(modalWindowCardAdd));
+buttonAddCard.addEventListener("click", () => {
+  formCardAdd.querySelectorAll(".form__input").forEach((inputElement) => {
+    checkInputValidity(formCardAdd, inputElement);
+  });
+  openPopup(modalWindowCardAdd);
+});
 buttonCloseCardAddWindow.addEventListener("click", () =>
   closePopup(modalWindowCardAdd)
 );
