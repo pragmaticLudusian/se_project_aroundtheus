@@ -41,13 +41,14 @@ function closePopup(popup) {
 
 function handleMouseClick(event) {
   if (this.id === event.target.id) {
-    closePopup(this); // "this" refers to the activator popup element
+    closePopup(this); // "this" refers to the activator popup element that is _opened
   }
 }
 
 function handleKeyPress(event) {
+  console.log(this.querySelector(".modal"));
   if (event.key === "Escape") {
-    closePopup(this.querySelector(".modal")); // "this" refers to the whole document
+    closePopup(this.querySelector(".modal_opened")); // "this" refers to the whole document
   }
 }
 
