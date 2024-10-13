@@ -32,7 +32,7 @@ const configuration = {
   inactiveButtonClass: "form__save-button_inactive",
   activeButtonClass: "form__save-button_active",
   // inputErrorClass: "popup__input_type_error", // handled via CSS pseudo-class
-  errorSelector: ".form__error",
+  // errorSelector: `#${inputElement.id}_error`, // due to use of esc. lit. and id class templating, this is unused
   activeErrorClass: "form__error_active",
 };
 

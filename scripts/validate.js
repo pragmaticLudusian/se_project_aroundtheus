@@ -44,13 +44,13 @@ const hasInvalidInput = (inputList) => {
 };
 
 function showInputError(config, formElement, inputElement, errorMessage) {
-  const inputError = formElement.querySelector(config["errorSelector"]);
+  const inputError = formElement.querySelector(`#${inputElement.id}_error`);
   inputError.classList.add(config["activeErrorClass"]);
   inputError.textContent = errorMessage;
 }
 
 function hideInputError(config, formElement, inputElement) {
-  const inputError = formElement.querySelector(config["errorSelector"]);
+  const inputError = formElement.querySelector(`#${inputElement.id}_error`);
   inputError.classList.remove(config["activeErrorClass"]);
   inputError.textContent = "";
 }
