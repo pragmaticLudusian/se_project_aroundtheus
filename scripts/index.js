@@ -115,23 +115,6 @@ function getCardElement(data) {
   cardImage.alt = data.name;
   cardElement.querySelector(".card__title").textContent = data.name;
 
-  const cardDelete = cardElement.querySelector(".card__delete-button");
-  cardDelete.addEventListener("click", (event) => {
-    event.target.closest(".card").remove();
-  });
-
-  const cardLike = cardElement.querySelector(".card__like");
-  cardLike.addEventListener("click", (event) => {
-    event.target.classList.toggle("card__like_active");
-  });
-
-  cardImage.addEventListener("click", (event) => {
-    modalImage.src = event.target.src;
-    modalImage.alt = event.target.alt;
-    modalCaption.textContent = event.target.alt;
-    openPopup(modalWindowCardView);
-  });
-
   return cardElement;
 }
 /* END DECLARATIVE SECTION */
@@ -182,5 +165,21 @@ modalWindowCardAdd.addEventListener("submit", (event) => {
   inputCardLink.value = "";
 });
 /* END CARD ADD SECTION */
+
+/* CARD GALLERY SECTION */
+cardsGallery.addEventListener("click", (event) => {
+  const cardElement = event.target;
+  if (cardElement.className === "card__image") {
+    modalImage.src = cardElement.src;
+    modalImage.alt = cardElement.alt;
+    modalCaption.textContent = cardElement.alt;
+    openPopup(modalWindowCardView);
+  } else if (cardElement.className.includes("card__like")) {
+    cardElement.classList.toggle("card__like_active");
+  } else if (cardElement.className === "card__delete-button") {
+    cardElement.closest(".card").remove();
+  }
+});
+/* END CARD GALLERY SECTION */
 
 enableValidation(configuration);
