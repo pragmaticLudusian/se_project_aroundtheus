@@ -32,7 +32,7 @@ const configuration = {
   inactiveButtonClass: "form__save-button_inactive",
   activeButtonClass: "form__save-button_active",
   // inputErrorClass: "popup__input_type_error", // handled via CSS pseudo-class
-  // errorSelector: `#${inputElement.id}_error`, // due to use of esc. lit. and id class templating, this is unused
+  // errorSelector: `#${inputElement.id}_error`, // due to use of esc. lit. and id class templates, this is unused
   activeErrorClass: "form__error_active",
 };
 
@@ -50,14 +50,14 @@ function closePopup(popup) {
 }
 
 function handleMouseClick(event) {
-  if (this.id === event.target.id) {
-    closePopup(this); // "this" refers to the activator popup element that is _opened
+  if (event.currentTarget.id === event.target.id) {
+    closePopup(event.currentTarget); // "this" context is too dynamic, so instead use the caller element via current
   }
 }
 
 function handleKeyPress(event) {
   if (event.key === "Escape") {
-    closePopup(this.querySelector(".modal_opened")); // "this" refers to the whole document
+    closePopup(document.querySelector(".modal_opened"));
   }
 }
 
