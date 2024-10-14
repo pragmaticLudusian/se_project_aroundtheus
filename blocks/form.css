@@ -46,7 +46,8 @@
   padding: 16px;
   width: 100%;
   border-radius: 2px;
-  font-size: 18px;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
 .form__save-button_active {
