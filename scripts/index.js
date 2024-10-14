@@ -146,9 +146,9 @@ formProfile.addEventListener("submit", (event) => {
 /* CARD ADD SECTION */
 buttonAddCard.addEventListener("click", () => {
   const inputList = Array.from(formCardAdd.querySelectorAll(".form__input"));
-  inputList.forEach((inputElement) => {
-    checkInputValidity(configuration, formCardAdd, inputElement, inputList);
-  });
+  // inputList.forEach((inputElement) => {
+  //   checkInputValidity(configuration, formCardAdd, inputElement, inputList);
+  // });
   openPopup(modalWindowCardAdd);
 });
 buttonCloseCardAddWindow.addEventListener("click", () =>
@@ -160,9 +160,7 @@ modalWindowCardAdd.addEventListener("submit", (event) => {
   const card = { name: inputCardTitle.value, link: inputCardLink.value };
   cardRender(card, "prepend");
   closePopup(modalWindowCardAdd);
-  // empty inputs once rendered closed AND actually added instead of not
-  inputCardTitle.value = "";
-  inputCardLink.value = "";
+  formCardAdd.reset();
 });
 /* END CARD ADD SECTION */
 
