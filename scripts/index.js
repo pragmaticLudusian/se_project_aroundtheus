@@ -61,15 +61,19 @@ function handleKeyPress(event) {
   }
 }
 
+const closeButtons = document.querySelectorAll(".modal__close-button");
+closeButtons.forEach((button) => {
+  const modal = button.closest(".modal");
+  button.addEventListener("click", () => closePopup(modal));
+  // for callback func to call forward a func, it would still need to have a anon.func body
+});
+
 // init profile editing & related modal window
 const profile = document.querySelector(".profile");
 const buttonEditProfile = profile.querySelector(".profile__edit-button");
 const profileName = profile.querySelector(".profile__name");
 const profileDescription = profile.querySelector(".profile__description");
 const modalWindowProfile = document.querySelector("#modal_profile");
-const buttonCloseProfileModal = modalWindowProfile.querySelector(
-  "#modal_profile_close"
-);
 // profile form & input vars
 const formProfile = document.forms["profile_form"];
 const inputProfileName = formProfile["name"]; // can refer to by name or id attribs
@@ -78,9 +82,6 @@ const inputProfileDescription = formProfile["description"];
 // init card add & related modal window
 const buttonAddCard = profile.querySelector(".profile__add-button");
 const modalWindowCardAdd = document.querySelector("#modal_card-add");
-const buttonCloseCardAddWindow = modalWindowCardAdd.querySelector(
-  "#modal_card-add_close"
-);
 // card-add form & input vars
 const formCardAdd = document.forms["card-add_form"];
 const inputCardTitle = formCardAdd["title"];
@@ -91,12 +92,6 @@ const modalWindowCardView = document.querySelector("#modal_card-view");
 const modalImage = modalWindowCardView.querySelector(".modal__image");
 const modalCaption = modalWindowCardView.querySelector(".modal__caption");
 // since these are singular elements that would change content for many images/captions, qS should only be used once here
-const buttonCloseCardViewModal = modalWindowCardView.querySelector(
-  "#modal_card-view_close"
-);
-buttonCloseCardViewModal.addEventListener("click", () =>
-  closePopup(modalWindowCardView)
-); // for callback func to call forward a func, it's still would need to have a function body
 
 // init the gallery cards and build all derivative actions upon page load
 const cardsGallery = document.querySelector(".gallery__cards");
@@ -105,7 +100,7 @@ initialCards.forEach((card) => cardRender(card)); // first it'll render the card
 
 function cardRender(item, method = "append") {
   const cardElement = getCardElement(item);
-  cardsGallery[method](cardElement); // not an array, but a var acting for .method
+  cardsGallery[method](cardElement); // not an array, but a var acting for .method/[method]
 }
 
 function getCardElement(data) {
@@ -130,10 +125,6 @@ buttonEditProfile.addEventListener("click", () => {
   openPopup(modalWindowProfile); // for rendering purposes, here it's the last line
 });
 
-buttonCloseProfileModal.addEventListener("click", () =>
-  closePopup(modalWindowProfile)
-);
-
 formProfile.addEventListener("submit", (event) => {
   // although the submit action could be tied to the window modal and it'd still work, semantically it's meant to be handled to the <form>
   event.preventDefault();
@@ -146,14 +137,11 @@ formProfile.addEventListener("submit", (event) => {
 /* CARD ADD SECTION */
 buttonAddCard.addEventListener("click", () => {
   const inputList = Array.from(formCardAdd.querySelectorAll(".form__input"));
-  // inputList.forEach((inputElement) => {
-  //   checkInputValidity(configuration, formCardAdd, inputElement, inputList);
-  // });
+  /* inputList.forEach((inputElement) => {
+     checkInputValidity(configuration, formCardAdd, inputElement, inputList);
+   }); */ // normally errors shouldn't show up as soon as a popup opens, but that would be remedied later along with leftover input
   openPopup(modalWindowCardAdd);
 });
-buttonCloseCardAddWindow.addEventListener("click", () =>
-  closePopup(modalWindowCardAdd)
-);
 
 modalWindowCardAdd.addEventListener("submit", (event) => {
   event.preventDefault();
