@@ -1,3 +1,6 @@
+import Card from "../components/Card.js";
+// import FormValidator from "../components/FormValidator.js";
+
 /* DECLARATIVE SECTION */
 const initialCards = [
   {
@@ -95,45 +98,23 @@ const modalCaption = modalWindowCardView.querySelector(".modal__caption");
 
 // init the gallery cards and build all derivative actions upon page load
 const cardsGallery = document.querySelector(".gallery__cards");
-const cardTemplate = document.querySelector("#card-template").content;
-initialCards.forEach((card) => cardRender(card)); // first it'll render the card being passed with the append method by default, then it'll setup all the rest with the getCardElement()
+initialCards.forEach((card) => {
+  cardRender(card);
+}); // first it'll render the card being passed with the append method by default, then it'll setup all the rest with the getCardElement()
 
 function cardRender(item, method = "append") {
-  const cardElement = getCardElement(item);
-  cardsGallery[method](cardElement); // not an array, but a var acting for .method/[method]
+  // const cardElement = getCardElement(item);
+  const card = new Card(item, "#card-template", handleCardPopup);
+  const cardElement = card.generateCard();
+  cardsGallery[method](cardElement);
 }
 
-function getCardElement(data) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // cloning in a loop is the way
-  const cardImage = cardElement.querySelector(".card__image"); // to change 2 attribs, a var would be recommended
-  cardImage.src = data.link;
-  cardImage.alt = data.name;
-  cardElement.querySelector(".card__title").textContent = data.name;
-
-  const cardLike = cardElement.querySelector(".card__like");
-  cardLike.addEventListener("click", handleCardLike);
-  function handleCardLike(event) {
-    event.target.classList.toggle("card__like_active");
-  }
-
-  cardImage.addEventListener("click", handleCardPopup);
-  function handleCardPopup(event) {
-    modalImage.src = event.target.src;
-    modalImage.alt = event.target.alt;
-    modalCaption.textContent = event.target.alt;
-    openPopup(modalWindowCardView);
-  }
-
-  const cardDelete = cardElement.querySelector(".card__delete-button");
-  cardDelete.addEventListener("click", handleCardDelete);
-  function handleCardDelete(event) {
-    event.target.closest(".card").remove();
-    cardLike.removeEventListener("click", handleCardLike);
-    cardImage.removeEventListener("click", handleCardPopup);
-    cardDelete.removeEventListener("click", handleCardDelete);
-  }
-
-  return cardElement;
+function handleCardPopup(card) {
+  // required by Sprint 7 project to keep this func in index.js for now
+  modalImage.src = card.getInfo().link;
+  modalImage.alt = card.getInfo().name;
+  modalCaption.textContent = card.getInfo().name;
+  openPopup(modalWindowCardView);
 }
 /* END DECLARATIVE SECTION */
 
@@ -175,4 +156,4 @@ modalWindowCardAdd.addEventListener("submit", (event) => {
 });
 /* END CARD ADD SECTION */
 
-enableValidation(configuration);
+// enableValidation(configuration);
