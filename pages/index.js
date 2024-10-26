@@ -68,7 +68,7 @@ const closeButtons = document.querySelectorAll(".modal__close-button");
 closeButtons.forEach((button) => {
   const modal = button.closest(".modal");
   button.addEventListener("click", () => closePopup(modal));
-  // for callback func to call forward a func, it would still need to have a anon.func body
+  // for callback func to call forward a func, it would still need to have an anon.func body
 });
 
 // init profile editing & related modal window
@@ -98,19 +98,16 @@ const modalCaption = modalWindowCardView.querySelector(".modal__caption");
 
 // init the gallery cards and build all derivative actions upon page load
 const cardsGallery = document.querySelector(".gallery__cards");
-initialCards.forEach((card) => {
-  cardRender(card);
-}); // first it'll render the card being passed with the append method by default, then it'll setup all the rest with the getCardElement()
+initialCards.forEach((card) => cardRender(card)); // first it'll render the card being passed with the append method by default, then it'll setup all the rest with the getCardElement()
 
 function cardRender(item, method = "append") {
-  // const cardElement = getCardElement(item);
   const card = new Card(item, "#card-template", handleCardPopup);
   const cardElement = card.generateCard();
   cardsGallery[method](cardElement);
 }
 
 function handleCardPopup(card) {
-  // required by Sprint 7 project to keep this func in index.js for now
+  // suggested by Sprint 7 project to keep this func in index.js for now
   modalImage.src = card.getInfo().link;
   modalImage.alt = card.getInfo().name;
   modalCaption.textContent = card.getInfo().name;
@@ -124,10 +121,7 @@ formValidatorProfile.enableValidation();
 buttonEditProfile.addEventListener("click", () => {
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
-  /* const inputList = Array.from(formProfile.querySelectorAll(".form__input"));
-  inputList.forEach((inputElement) => {
-    checkInputValidity(configuration, formProfile, inputElement, inputList);
-  }); // render input validity just before opening the popup */
+  formValidatorProfile.resetFormValidation(); // input always valid when taking from the html page
   openPopup(modalWindowProfile); // for rendering purposes, here it's the last line
 });
 
@@ -145,10 +139,7 @@ formProfile.addEventListener("submit", (event) => {
 const formValidatorCardAdd = new FormValidator(configuration, "card-add_form");
 formValidatorCardAdd.enableValidation();
 buttonAddCard.addEventListener("click", () => {
-  const inputList = Array.from(formCardAdd.querySelectorAll(".form__input"));
-  /* inputList.forEach((inputElement) => {
-     checkInputValidity(configuration, formCardAdd, inputElement, inputList);
-   }); */ // normally errors shouldn't show up as soon as a popup opens, but that would be remedied later along with leftover input
+  // don't show errors upon opening the modal when no input is issued
   openPopup(modalWindowCardAdd);
 });
 
@@ -159,5 +150,6 @@ modalWindowCardAdd.addEventListener("submit", (event) => {
   closePopup(modalWindowCardAdd);
   formCardAdd.reset();
   formValidatorCardAdd.disableButton();
+  formValidatorCardAdd.resetFormValidation();
 });
 /* END CARD ADD SECTION */

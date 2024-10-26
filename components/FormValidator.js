@@ -9,7 +9,7 @@ export default class FormValidator {
       this._form.querySelectorAll(this._config["inputSelector"])
     );
     this._inputList.forEach((inputElement) => {
-      // this._inputElement = inputElement; // this gets overwritten and causes the last input on the list to be selected
+      // this._inputElement = inputElement; // this gets overwritten and causes the last input on the list to be selected. it may not be static, but it's shared among the very same instance of the class
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(this, inputElement); // as such, another argument needs to pass through
       });
@@ -69,16 +69,16 @@ export default class FormValidator {
   }
 
   resetFormValidation() {
-    // there's a diff between resetting form values and form validation
+    // there's a diff between resetting form values and form validation, as well as resetting validation and disabling the button methods - hence why they're separate
+    const inputList = Array.from(
+      this._form.querySelectorAll(this._config["inputSelector"])
+    );
+    inputList.forEach((inputElement) => {
+      this._checkInputValidity(this, inputElement);
+    });
   }
 
   enableValidation() {
-    // const formList = Array.from(document.forms);
-    // formList.forEach((formElement) => {
-    //   formElement.addEventListener("submit", (event) => {
-    //     event.preventDefault();
-    //   });
     this._setEventListeners();
-    // });
   }
 }
