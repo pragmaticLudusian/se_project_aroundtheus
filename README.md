@@ -15,7 +15,9 @@ This website was made with responsive design in mind, providing navigation and a
 - The BEM methodology (page blocks + flat files)
 - Forms
 - Form validation (primarily via JS)
-- JS event delegation
+- Event listeners
+- Object-Oriented Programming paradigm
+- Class import/export
 
 ## Previews
 
