@@ -1,5 +1,5 @@
 import Card from "../components/Card.js";
-// import FormValidator from "../components/FormValidator.js";
+import FormValidator from "../components/FormValidator.js";
 
 /* DECLARATIVE SECTION */
 const initialCards = [
@@ -119,13 +119,15 @@ function handleCardPopup(card) {
 /* END DECLARATIVE SECTION */
 
 /* PROFILE SECTION */
+const formValidatorProfile = new FormValidator(configuration, "profile_form");
+formValidatorProfile.enableValidation();
 buttonEditProfile.addEventListener("click", () => {
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
-  const inputList = Array.from(formProfile.querySelectorAll(".form__input"));
+  /* const inputList = Array.from(formProfile.querySelectorAll(".form__input"));
   inputList.forEach((inputElement) => {
     checkInputValidity(configuration, formProfile, inputElement, inputList);
-  }); // render input validity just before opening the popup
+  }); // render input validity just before opening the popup */
   openPopup(modalWindowProfile); // for rendering purposes, here it's the last line
 });
 
@@ -139,6 +141,8 @@ formProfile.addEventListener("submit", (event) => {
 /* END PROFILE SECTION */
 
 /* CARD ADD SECTION */
+const formValidatorCardAdd = new FormValidator(configuration, "card-add_form");
+formValidatorCardAdd.enableValidation();
 buttonAddCard.addEventListener("click", () => {
   const inputList = Array.from(formCardAdd.querySelectorAll(".form__input"));
   /* inputList.forEach((inputElement) => {
@@ -155,5 +159,3 @@ modalWindowCardAdd.addEventListener("submit", (event) => {
   formCardAdd.reset();
 });
 /* END CARD ADD SECTION */
-
-// enableValidation(configuration);
