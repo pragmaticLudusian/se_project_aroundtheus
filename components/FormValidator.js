@@ -18,9 +18,6 @@ export default class FormValidator {
 
   _checkInputValidity(obj, inputElement) {
     // obj, being the 1st parameter is equivalent to the keyword this
-    this._buttonElement = this._form.querySelector(
-      this._config["submitButtonSelector"]
-    );
     if (this._hasInvalidInput(this._inputList)) {
       this._showInputError(this, inputElement);
       this.disableButton(this);
@@ -49,16 +46,23 @@ export default class FormValidator {
   }
 
   disableButton() {
-    this._buttonElement.classList.replace(
+    // unless using the private properties from the constructor, using intermediate priv. props. would be considered undef if called from outside using a public method
+    const buttonElement = this._form.querySelector(
+      this._config["submitButtonSelector"]
+    );
+    buttonElement.classList.replace(
       this._config["activeButtonClass"],
       this._config["inactiveButtonClass"]
     );
-    this._buttonElement.setAttribute("disabled", true);
+    buttonElement.setAttribute("disabled", true);
   }
 
   enableButton() {
-    this._buttonElement.removeAttribute("disabled");
-    this._buttonElement.classList.replace(
+    const buttonElement = this._form.querySelector(
+      this._config["submitButtonSelector"]
+    );
+    buttonElement.removeAttribute("disabled");
+    buttonElement.classList.replace(
       this._config["inactiveButtonClass"],
       this._config["activeButtonClass"]
     );

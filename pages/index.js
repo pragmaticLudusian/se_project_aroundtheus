@@ -137,6 +137,7 @@ formProfile.addEventListener("submit", (event) => {
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputProfileDescription.value;
   closePopup(modalWindowProfile);
+  formValidatorProfile.disableButton();
 });
 /* END PROFILE SECTION */
 
@@ -157,5 +158,6 @@ modalWindowCardAdd.addEventListener("submit", (event) => {
   cardRender(card, "prepend");
   closePopup(modalWindowCardAdd);
   formCardAdd.reset();
+  formValidatorCardAdd.disableButton();
 });
 /* END CARD ADD SECTION */
