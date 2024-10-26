@@ -26,9 +26,6 @@ export default class Card {
 
   _handleCardDelete() {
     this._cardDelete.closest(".card").remove();
-    this._cardLike.removeEventListener("click", this._handleCardLike);
-    this._cardDelete.removeEventListener("click", this._handleCardDelete);
-    this._cardImage.removeEventListener("click", this.handleCardPopup);
   }
 
   _getTemplate() {
@@ -42,7 +39,7 @@ export default class Card {
   generateCard() {
     this._cardElement = this._getTemplate(); // treat like class-specific var (non-static, kinda like let)
     this._cardImage = this._cardElement.querySelector(".card__image"); // this._var would be used for handling image click, so it's not a const here
-    this._cardImage.src = this._link;
+    this._cardImage.src = this._link; // formally referred to as "class fields" or properties
     this._cardImage.alt = this._name;
     this._cardElement.querySelector(".card__title").textContent = this._name;
     this._cardLike = this._cardElement.querySelector(".card__like");

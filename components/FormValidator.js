@@ -1,7 +1,7 @@
 export default class FormValidator {
   constructor(config, form) {
     this._config = config; // settings obj
-    this._form = document.forms[form]; // form elem
+    this._form = form; // form elem, not id
   }
 
   _setEventListeners() {
@@ -18,12 +18,15 @@ export default class FormValidator {
 
   _checkInputValidity(obj, inputElement) {
     // obj, being the 1st parameter is equivalent to the keyword this
+    this._buttonElement = this._form.querySelector(
+      this._config["submitButtonSelector"]
+    );
     if (this._hasInvalidInput(this._inputList)) {
       this._showInputError(this, inputElement);
-      this.disableButton(this);
+      this.disableButton(); // "end-point" methods need no args incl. this
     } else {
       this._hideInputError(this, inputElement);
-      this.enableButton(this);
+      this.enableButton();
     }
   }
 
@@ -47,34 +50,30 @@ export default class FormValidator {
 
   disableButton() {
     // unless using the private properties from the constructor, using intermediate priv. props. would be considered undef if called from outside using a public method
-    const buttonElement = this._form.querySelector(
-      this._config["submitButtonSelector"]
-    );
-    buttonElement.classList.replace(
+    this._buttonElement.classList.replace(
       this._config["activeButtonClass"],
       this._config["inactiveButtonClass"]
     );
-    buttonElement.setAttribute("disabled", true);
+    this._buttonElement.setAttribute("disabled", true);
   }
 
   enableButton() {
-    const buttonElement = this._form.querySelector(
-      this._config["submitButtonSelector"]
-    );
-    buttonElement.removeAttribute("disabled");
-    buttonElement.classList.replace(
+    this._buttonElement.removeAttribute("disabled");
+    this._buttonElement.classList.replace(
       this._config["inactiveButtonClass"],
       this._config["activeButtonClass"]
     );
   }
 
   resetFormValidation() {
-    // there's a diff between resetting form values and form validation, as well as resetting validation and disabling the button methods - hence why they're separate
-    const inputList = Array.from(
-      this._form.querySelectorAll(this._config["inputSelector"])
+    // in the case of profile reset-validating, the button elem is undef since this is called from outside, necessitating to add here too unless it's to be included in the constructor
+    this._buttonElement = this._form.querySelector(
+      this._config["submitButtonSelector"]
     );
-    inputList.forEach((inputElement) => {
-      this._checkInputValidity(this, inputElement);
+    // remove errors and disable them rather than adding them anew
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(this, inputElement);
+      this.disableButton();
     });
   }
 

@@ -98,9 +98,9 @@ const modalCaption = modalWindowCardView.querySelector(".modal__caption");
 
 // init the gallery cards and build all derivative actions upon page load
 const cardsGallery = document.querySelector(".gallery__cards");
-initialCards.forEach((card) => cardRender(card)); // first it'll render the card being passed with the append method by default, then it'll setup all the rest with the getCardElement()
+initialCards.forEach((card) => renderCard(card)); // first it'll render the card being passed with the append method by default, then it'll setup all the rest with the getCardElement()
 
-function cardRender(item, method = "append") {
+function renderCard(item, method = "append") {
   const card = new Card(item, "#card-template", handleCardPopup);
   const cardElement = card.generateCard();
   cardsGallery[method](cardElement);
@@ -108,20 +108,26 @@ function cardRender(item, method = "append") {
 
 function handleCardPopup(card) {
   // suggested by Sprint 7 project to keep this func in index.js for now
-  modalImage.src = card.getInfo().link;
-  modalImage.alt = card.getInfo().name;
-  modalCaption.textContent = card.getInfo().name;
+  const { name, link } = card.getInfo();
+  modalImage.src = link;
+  modalImage.alt = name;
+  modalCaption.textContent = name;
   openPopup(modalWindowCardView);
 }
+
+const formValidators = {};
+Array.from(document.forms).forEach((formElement) => {
+  const validator = new FormValidator(configuration, formElement);
+  formValidators[formElement.id] = validator;
+  validator.enableValidation();
+});
 /* END DECLARATIVE SECTION */
 
 /* PROFILE SECTION */
-const formValidatorProfile = new FormValidator(configuration, "profile_form");
-formValidatorProfile.enableValidation();
 buttonEditProfile.addEventListener("click", () => {
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
-  formValidatorProfile.resetFormValidation(); // input always valid when taking from the html page
+  formValidators["profile_form"].resetFormValidation(); // input always valid when taking from the html page
   openPopup(modalWindowProfile); // for rendering purposes, here it's the last line
 });
 
@@ -131,13 +137,10 @@ formProfile.addEventListener("submit", (event) => {
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputProfileDescription.value;
   closePopup(modalWindowProfile);
-  formValidatorProfile.disableButton();
 });
 /* END PROFILE SECTION */
 
 /* CARD ADD SECTION */
-const formValidatorCardAdd = new FormValidator(configuration, "card-add_form");
-formValidatorCardAdd.enableValidation();
 buttonAddCard.addEventListener("click", () => {
   // don't show errors upon opening the modal when no input is issued
   openPopup(modalWindowCardAdd);
@@ -146,10 +149,10 @@ buttonAddCard.addEventListener("click", () => {
 modalWindowCardAdd.addEventListener("submit", (event) => {
   event.preventDefault();
   const card = { name: inputCardTitle.value, link: inputCardLink.value };
-  cardRender(card, "prepend");
+  renderCard(card, "prepend");
   closePopup(modalWindowCardAdd);
   formCardAdd.reset();
-  formValidatorCardAdd.disableButton();
-  formValidatorCardAdd.resetFormValidation();
+  formValidators["card-add_form"].disableButton();
+  // apparently no need to show errors upon submitting either, since input is retained when simply closing the popup w/o submitting
 });
 /* END CARD ADD SECTION */
