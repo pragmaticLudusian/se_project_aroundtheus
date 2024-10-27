@@ -14,13 +14,13 @@ export default class FormValidator {
         this._checkInputValidity(this, inputElement); // as such, another argument needs to pass through
       });
     });
+    this._buttonElement = this._form.querySelector(
+      this._config["submitButtonSelector"]
+    ); // for use in both the class construction and resetValidation method, here being the exception rather than the rule
   }
 
   _checkInputValidity(obj, inputElement) {
     // obj, being the 1st parameter is equivalent to the keyword this
-    this._buttonElement = this._form.querySelector(
-      this._config["submitButtonSelector"]
-    );
     if (this._hasInvalidInput(this._inputList)) {
       this._showInputError(this, inputElement);
       this.disableButton(); // "end-point" methods need no args incl. this
@@ -66,15 +66,11 @@ export default class FormValidator {
   }
 
   resetFormValidation() {
-    // in the case of profile reset-validating, the button elem is undef since this is called from outside, necessitating to add here too unless it's to be included in the constructor
-    this._buttonElement = this._form.querySelector(
-      this._config["submitButtonSelector"]
-    );
     // remove errors and disable them rather than adding them anew
     this._inputList.forEach((inputElement) => {
       this._hideInputError(this, inputElement);
-      this.disableButton();
     });
+    this.disableButton();
   }
 
   enableValidation() {
