@@ -64,4 +64,4 @@ export const modalCaption =
 // since these are singular elements that would change content for many images/captions, qS should only be used once here
 
 // init the gallery cards and build all derivative actions upon page load
-export const cardsGallery = document.querySelector(".gallery__cards");
+export const cardsGallery = ".gallery__cards";

@@ -1,10 +1,11 @@
+import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import {
   initialCards,
   configuration,
   profile,
-  profileEditProfile,
+  buttonEditProfile,
   profileName,
   profileDescription,
   modalWindowProfile,
@@ -54,13 +55,18 @@ closeButtons.forEach((button) => {
   // for callback func to call forward a func, it would still need to have an anon.func body
 });
 
-initialCards.forEach((card) => renderCard(card)); // first it'll render the card being passed with the append method by default, then it'll setup all the rest with the getCardElement()
-
-function renderCard(item, method = "append") {
-  const card = new Card(item, "#card-template", handleCardPopup);
-  const cardElement = card.generateCard();
-  cardsGallery[method](cardElement);
-}
+const initialCardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, "#card-template", handleCardPopup);
+      const cardElement = card.generateCard();
+      initialCardList.addItem(cardElement);
+    },
+  },
+  cardsGallery
+);
+initialCardList.renderItems();
 
 function handleCardPopup(card) {
   // suggested by Sprint 7 project to keep this func in index.js for now
