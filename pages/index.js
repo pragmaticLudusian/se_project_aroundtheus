@@ -84,7 +84,7 @@ const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
   (event, cardInputs) => {
     event.preventDefault();
-    const card = new Card(cardInputs, "#card-template", handleCardPopup); // {name, link} tying to html name= attribs
+    const card = new Card(cardInputs, "#card-template", handleCardPopup); // {title, link} tying to html name= attribs
     const cardElement = card.generateCard();
     cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
     popupCardAdd.close();

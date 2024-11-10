@@ -8,10 +8,10 @@ export default class PopupWithImage extends Popup {
 
   // setEventListeners() doesn't need super because it's working in a default behavior
 
-  open({ name, link }) {
+  open({ title, link }) {
     modalImage.src = link;
-    modalImage.alt = name;
-    modalCaption.textContent = name;
+    modalImage.alt = title;
+    modalCaption.textContent = title;
     super.open();
   }
 

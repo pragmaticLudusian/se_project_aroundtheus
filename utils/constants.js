@@ -1,26 +1,26 @@
 export const initialCards = [
   {
-    name: "Harbor Springs",
+    title: "Harbor Springs",
     link: "images/cards/harbor-springs.jpg",
   },
   {
-    name: "Downtown Chicago",
+    title: "Downtown Chicago",
     link: "images/cards/chicago.jpg",
   },
   {
-    name: "Bethlehem",
+    title: "Bethlehem",
     link: "images/cards/bethlehem.jpg",
   },
   {
-    name: "Perrysburg",
+    title: "Perrysburg",
     link: "images/cards/perrysburg.jpg",
   },
   {
-    name: "Venice Beach",
+    title: "Venice Beach",
     link: "images/cards/venice-beach.jpg",
   },
   {
-    name: "Palace of Fine Arts",
+    title: "Palace of Fine Arts",
     link: "images/cards/palace-finearts.jpg",
   },
 ];
