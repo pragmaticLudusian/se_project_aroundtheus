@@ -25,34 +25,18 @@ import {
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 
-// universal popup functions
-function openPopup(popup) {}
-
-function closePopup(popup) {}
-
-function handleMouseClick(event) {}
-
-function handleKeyPress(event) {}
-
-/* const closeButtons = document.querySelectorAll(".modal__close-button");
-    closeButtons.forEach((button) => {
-      const modal = button.closest(".modal");
-      button.addEventListener("click", () => closePopup(modal));
-      // for callback func to call forward a func, it would still need to have an anon.func body
-    }); */
-
-const initialCardList = new Section(
+const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
       const card = new Card(item, "#card-template", handleCardPopup);
       const cardElement = card.generateCard();
-      initialCardList.addItem(cardElement);
+      cardSection.addItem(cardElement);
     },
   },
   cardsGallery
 );
-initialCardList.renderItems();
+cardSection.renderItems();
 
 const popupImage = new PopupWithImage(modalWindowCardView);
 popupImage.setEventListeners();
@@ -71,6 +55,17 @@ Array.from(document.forms).forEach((formElement) => {
 /* END DECLARATIVE SECTION */
 
 /* PROFILE SECTION */
+const popupProfile = new PopupWithForm(
+  modalWindowProfile,
+  (event, profileInputs) => {
+    event.preventDefault();
+    profileName.textContent = profileInputs.name;
+    profileDescription.textContent = profileInputs.description;
+    popupProfile.close();
+  }
+);
+popupProfile.setEventListeners();
+
 buttonEditProfile.addEventListener("click", () => {
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
@@ -78,30 +73,23 @@ buttonEditProfile.addEventListener("click", () => {
   popupProfile.open();
 });
 
-const popupProfile = new PopupWithForm(
-  modalWindowProfile,
-  (event, inputValues) => {
+/* CARD ADD SECTION */
+const popupCardAdd = new PopupWithForm(
+  modalWindowCardAdd,
+  (event, cardAddInputs) => {
     event.preventDefault();
-    profileName.textContent = inputValues.profile_name;
-    profileDescription.textContent = inputValues.profile_description;
-    popupProfile.close();
+    const card = new Card(cardAddInputs, "#card-template", handleCardPopup); // {name, link} tying to html name= attribs
+    const cardElement = card.generateCard();
+    cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
+    popupCardAdd.close();
+    formCardAdd.reset();
+    formValidators["card-add_form"].disableButton();
   }
 );
-popupProfile.setEventListeners();
+popupCardAdd.setEventListeners();
 
-/* CARD ADD SECTION */
 buttonAddCard.addEventListener("click", () => {
   // don't show errors upon opening the modal when no input is issued
-  openPopup(modalWindowCardAdd);
-});
-
-modalWindowCardAdd.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const card = { name: inputCardTitle.value, link: inputCardLink.value };
-  renderCard(card, "prepend");
-  closePopup(modalWindowCardAdd);
-  formCardAdd.reset();
-  formValidators["card-add_form"].disableButton();
-  // apparently no need to show errors upon submitting either, since input is retained when simply closing the popup w/o submitting
+  popupCardAdd.open();
 });
 /* END CARD ADD SECTION */
