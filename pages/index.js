@@ -23,6 +23,7 @@ import {
   cardsGallery,
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 // universal popup functions
 function openPopup(popup) {}
@@ -74,17 +75,21 @@ buttonEditProfile.addEventListener("click", () => {
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
   formValidators["profile_form"].resetFormValidation(); // input always valid when taking from the html page
-  openPopup(modalWindowProfile); // for rendering purposes, here it's the last line
+  popupProfile.open();
 });
 
-formProfile.addEventListener("submit", (event) => {
-  // although the submit action could be tied to the window modal and it'd still work, semantically it's meant to be handled to the <form>
-  event.preventDefault();
-  profileName.textContent = inputProfileName.value;
-  profileDescription.textContent = inputProfileDescription.value;
-  closePopup(modalWindowProfile);
-});
-/* END PROFILE SECTION */
+const popupProfile = new PopupWithForm(
+  modalWindowProfile,
+  (event, inputValues) => {
+    event.preventDefault();
+    console.log(inputValues);
+
+    profileName.textContent = inputProfileName.value;
+    profileDescription.textContent = inputProfileDescription.value;
+    popupProfile.close();
+  }
+);
+popupProfile.setEventListeners();
 
 /* CARD ADD SECTION */
 buttonAddCard.addEventListener("click", () => {

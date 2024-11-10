@@ -6,9 +6,7 @@ export default class PopupWithImage extends Popup {
     super(popup);
   }
 
-  setEventListeners() {
-    super.setEventListeners();
-  }
+  // setEventListeners() doesn't need super because it's working in a default behavior
 
   open({ name, link }) {
     modalImage.src = link;
@@ -17,5 +15,5 @@ export default class PopupWithImage extends Popup {
     super.open();
   }
 
-  // close() doesn't need super because it's working in a default behavior
+  // close()
 }
