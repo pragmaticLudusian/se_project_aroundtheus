@@ -63,18 +63,18 @@ const userProfile = new UserInfo({
 
 const popupProfile = new PopupWithForm(
   modalWindowProfile,
-  (event, profileInputs) => {
+  (event, { name, description }) => {
     event.preventDefault();
-    userProfile.setUserInfo(profileInputs.name, profileInputs.description);
+    userProfile.setUserInfo(name, description);
     popupProfile.close();
   }
 );
 popupProfile.setEventListeners();
 
 buttonEditProfile.addEventListener("click", () => {
-  const userInfo = userProfile.getUserInfo();
-  inputProfileName.value = userInfo.name;
-  inputProfileDescription.value = userInfo.description;
+  const { name, description } = userProfile.getUserInfo();
+  inputProfileName.value = name;
+  inputProfileDescription.value = description;
   formValidators["profile_form"].resetFormValidation(); // input always valid when taking from the html page
   popupProfile.open();
 });
@@ -82,9 +82,9 @@ buttonEditProfile.addEventListener("click", () => {
 /* CARD ADD SECTION */
 const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
-  (event, cardAddInputs) => {
+  (event, cardInputs) => {
     event.preventDefault();
-    const card = new Card(cardAddInputs, "#card-template", handleCardPopup); // {name, link} tying to html name= attribs
+    const card = new Card(cardInputs, "#card-template", handleCardPopup); // {name, link} tying to html name= attribs
     const cardElement = card.generateCard();
     cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
     popupCardAdd.close();
