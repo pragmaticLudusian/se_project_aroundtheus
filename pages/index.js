@@ -82,10 +82,8 @@ const popupProfile = new PopupWithForm(
   modalWindowProfile,
   (event, inputValues) => {
     event.preventDefault();
-    console.log(inputValues);
-
-    profileName.textContent = inputProfileName.value;
-    profileDescription.textContent = inputProfileDescription.value;
+    profileName.textContent = inputValues.profile_name;
+    profileDescription.textContent = inputValues.profile_description;
     popupProfile.close();
   }
 );

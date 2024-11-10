@@ -15,5 +15,5 @@ export default class PopupWithImage extends Popup {
     super.open();
   }
 
-  // close()
+  // close() doesn't need method overriding either
 }
