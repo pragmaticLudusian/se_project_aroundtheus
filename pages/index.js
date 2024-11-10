@@ -1,6 +1,10 @@
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
+/* DECLARATIVE SECTION */
 import {
   initialCards,
   configuration,
@@ -22,8 +26,6 @@ import {
   modalCaption,
   cardsGallery,
 } from "../utils/constants.js";
-import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm.js";
 
 const cardSection = new Section(
   {
@@ -43,7 +45,6 @@ popupImage.setEventListeners();
 function handleCardPopup() {
   // suggested by Sprint 7 project to keep this func in index.js for now
   popupImage.open(this.getInfo()); // this refers to Card
-  // should this be moved from being a standalone func?
 }
 
 const formValidators = {};
@@ -55,20 +56,25 @@ Array.from(document.forms).forEach((formElement) => {
 /* END DECLARATIVE SECTION */
 
 /* PROFILE SECTION */
+const userProfile = new UserInfo({
+  name: profileName,
+  description: profileDescription,
+});
+
 const popupProfile = new PopupWithForm(
   modalWindowProfile,
   (event, profileInputs) => {
     event.preventDefault();
-    profileName.textContent = profileInputs.name;
-    profileDescription.textContent = profileInputs.description;
+    userProfile.setUserInfo(profileInputs.name, profileInputs.description);
     popupProfile.close();
   }
 );
 popupProfile.setEventListeners();
 
 buttonEditProfile.addEventListener("click", () => {
-  inputProfileName.value = profileName.textContent;
-  inputProfileDescription.value = profileDescription.textContent;
+  const userInfo = userProfile.getUserInfo();
+  inputProfileName.value = userInfo.name;
+  inputProfileDescription.value = userInfo.description;
   formValidators["profile_form"].resetFormValidation(); // input always valid when taking from the html page
   popupProfile.open();
 });
