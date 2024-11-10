@@ -22,6 +22,7 @@ import {
   modalCaption,
   cardsGallery,
 } from "../utils/constants.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 // universal popup functions
 function openPopup(popup) {}
@@ -52,13 +53,12 @@ const initialCardList = new Section(
 );
 initialCardList.renderItems();
 
-function handleCardPopup(card) {
+const popupImage = new PopupWithImage(modalWindowCardView);
+popupImage.setEventListeners();
+function handleCardPopup() {
   // suggested by Sprint 7 project to keep this func in index.js for now
-  const { name, link } = card.getInfo();
-  modalImage.src = link;
-  modalImage.alt = name;
-  modalCaption.textContent = name;
-  openPopup(modalWindowCardView);
+  popupImage.open(this.getInfo()); // this refers to Card
+  // should this be moved from being a standalone func?
 }
 
 const formValidators = {};
