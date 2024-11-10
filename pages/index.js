@@ -24,36 +24,20 @@ import {
 } from "../utils/constants.js";
 
 // universal popup functions
-function openPopup(popup) {
-  popup.classList.add("modal_opened");
-  popup.addEventListener("click", handleMouseClick);
-  document.addEventListener("keydown", handleKeyPress);
-}
+function openPopup(popup) {}
 
-function closePopup(popup) {
-  popup.classList.remove("modal_opened");
-  popup.removeEventListener("click", handleMouseClick);
-  document.removeEventListener("keydown", handleKeyPress);
-}
+function closePopup(popup) {}
 
-function handleMouseClick(event) {
-  if (event.currentTarget.id === event.target.id) {
-    closePopup(event.currentTarget); // "this" context is too dynamic, so instead use the caller element via current
-  }
-}
+function handleMouseClick(event) {}
 
-function handleKeyPress(event) {
-  if (event.key === "Escape") {
-    closePopup(document.querySelector(".modal_opened"));
-  }
-}
+function handleKeyPress(event) {}
 
-const closeButtons = document.querySelectorAll(".modal__close-button");
-closeButtons.forEach((button) => {
-  const modal = button.closest(".modal");
-  button.addEventListener("click", () => closePopup(modal));
-  // for callback func to call forward a func, it would still need to have an anon.func body
-});
+/* const closeButtons = document.querySelectorAll(".modal__close-button");
+    closeButtons.forEach((button) => {
+      const modal = button.closest(".modal");
+      button.addEventListener("click", () => closePopup(modal));
+      // for callback func to call forward a func, it would still need to have an anon.func body
+    }); */
 
 const initialCardList = new Section(
   {
