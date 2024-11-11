@@ -28,12 +28,16 @@ import {
   cardsGallery,
 } from "../utils/constants.js";
 
+const createCard = (card) => {
+  return card.generateCard();
+};
+
 const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
       const card = new Card(item, "#card-template", handleCardPopup);
-      const cardElement = card.generateCard();
+      const cardElement = createCard(card);
       cardSection.addItem(cardElement);
     },
   },
@@ -43,9 +47,9 @@ cardSection.renderItems();
 
 const popupImage = new PopupWithImage(modalWindowCardView);
 popupImage.setEventListeners();
-function handleCardPopup() {
+function handleCardPopup(card) {
   // suggested by Sprint 7 project to keep this func in index.js for now
-  popupImage.open(this.getInfo()); // this refers to Card
+  popupImage.open(card); // since "this" is prohibited outside of classes, and passing an arg to the func as a param to this func causes a lexical ref err, then in the class's handler func it would need to pass the ready-made getInfo() method to pass through unimpeded
 }
 
 const formValidators = {};
@@ -86,7 +90,7 @@ const popupCardAdd = new PopupWithForm(
   (event, cardInputs) => {
     event.preventDefault();
     const card = new Card(cardInputs, "#card-template", handleCardPopup); // {title, link} tying to html name= attribs
-    const cardElement = card.generateCard();
+    const cardElement = createCard(card);
     cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
     popupCardAdd.close();
     formCardAdd.reset();

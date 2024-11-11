@@ -8,7 +8,7 @@ export default class Card {
 
   _setEventListeners() {
     this._cardImage.addEventListener("click", () => {
-      this._handleImageClick(this);
+      this._handleImageClick(this.getInfo());
     });
 
     this._cardLike.addEventListener("click", () => {
