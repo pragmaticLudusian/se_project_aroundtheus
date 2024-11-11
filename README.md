@@ -2,7 +2,7 @@
 
 This project made by [TripleTen](https://tripleten.co.il) is about a website called "Around The U.S." - an image portfolio website dedicated to showcase the places and views around the USA, and even adding some interactivity by allowing to add or remove images from the gallery.
 
-This website was made with responsive design in mind, providing navigation and accessiblity with devices besides just mobile or desktop web browsers. This was made possible thanks to a combo of media queries and flexible elements such as the CSS grid.
+This website was made with responsive design in mind, providing navigation and accessibility with devices besides just mobile or desktop web browsers. This was made possible thanks to a combo of media queries and flexible elements such as the CSS grid.
 
 ## Techs used
 
@@ -17,7 +17,8 @@ This website was made with responsive design in mind, providing navigation and a
 - Form validation (primarily via JS)
 - Event listeners
 - Object-Oriented Programming paradigm
-- Class import/export
+- Class modules (loose coupling)
+- NodeJS & Webpack
 
 ## Previews
 
