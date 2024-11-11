@@ -1,27 +1,27 @@
 export const initialCards = [
   {
     title: "Harbor Springs",
-    link: "images/cards/harbor-springs.jpg",
+    link: new URL("../images/cards/harbor-springs.jpg", import.meta.url),
   },
   {
     title: "Downtown Chicago",
-    link: "images/cards/chicago.jpg",
+    link: new URL("../images/cards/chicago.jpg", import.meta.url),
   },
   {
     title: "Bethlehem",
-    link: "images/cards/bethlehem.jpg",
+    link: new URL("../images/cards/bethlehem.jpg", import.meta.url),
   },
   {
     title: "Perrysburg",
-    link: "images/cards/perrysburg.jpg",
+    link: new URL("../images/cards/perrysburg.jpg", import.meta.url),
   },
   {
     title: "Venice Beach",
-    link: "images/cards/venice-beach.jpg",
+    link: new URL("../images/cards/venice-beach.jpg", import.meta.url),
   },
   {
     title: "Palace of Fine Arts",
-    link: "images/cards/palace-finearts.jpg",
+    link: new URL("../images/cards/palace-finearts.jpg", import.meta.url),
   },
 ];
 export const configuration = {
