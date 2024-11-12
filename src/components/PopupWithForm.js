@@ -1,10 +1,10 @@
 import Popup from "./Popup.js";
-import { configuration as c } from "../utils/constants.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popup, handleSubmit) {
+  constructor(popup, handleSubmit, inputSelector) {
     super(popup); // popup selected element
     this._handleSubmit = handleSubmit; // callback func for submitting form
+    this._inputSelector = inputSelector;
   }
 
   setEventListeners() {
@@ -12,15 +12,16 @@ export default class PopupWithForm extends Popup {
     this._popup.addEventListener("submit", (event) => {
       this._handleSubmit(event, this._getInputValues()); // pass and execute func
     });
+    this._inputFields = Array.from(
+      this._popup.querySelectorAll(this._inputSelector)
+    );
   }
 
   _getInputValues() {
     const inputValues = {};
-    Array.from(this._popup.querySelectorAll(c.inputSelector)).forEach(
-      (input) => {
-        inputValues[input.name] = input.value;
-      }
-    );
+    this._inputFields.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
     return inputValues;
   }
 }

@@ -45,7 +45,10 @@ const cardSection = new Section(
 );
 cardSection.renderItems();
 
-const popupImage = new PopupWithImage(modalWindowCardView);
+const popupImage = new PopupWithImage(modalWindowCardView, {
+  image: modalImage,
+  caption: modalCaption,
+});
 popupImage.setEventListeners();
 function handleCardPopup(card) {
   // suggested by Sprint 7 project to keep this func in index.js for now
@@ -72,7 +75,8 @@ const popupProfile = new PopupWithForm(
     event.preventDefault();
     userProfile.setUserInfo(name, description);
     popupProfile.close();
-  }
+  },
+  configuration.inputSelector
 );
 popupProfile.setEventListeners();
 
@@ -95,7 +99,8 @@ const popupCardAdd = new PopupWithForm(
     popupCardAdd.close();
     formCardAdd.reset();
     formValidators["card-add_form"].disableButton();
-  }
+  },
+  configuration.inputSelector
 );
 popupCardAdd.setEventListeners();
 
