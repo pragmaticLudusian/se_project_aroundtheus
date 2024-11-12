@@ -28,7 +28,8 @@ import {
   cardsGallery,
 } from "../utils/constants.js";
 
-const createCard = (card) => {
+const createCard = (cardItem) => {
+  const card = new Card(cardItem, "#card-template", handleCardPopup);
   return card.generateCard();
 };
 
@@ -36,8 +37,7 @@ const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, "#card-template", handleCardPopup);
-      const cardElement = createCard(card);
+      const cardElement = createCard(item);
       cardSection.addItem(cardElement);
     },
   },
@@ -93,8 +93,7 @@ const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
   (event, cardInputs) => {
     event.preventDefault();
-    const card = new Card(cardInputs, "#card-template", handleCardPopup); // {title, link} tying to html name= attribs
-    const cardElement = createCard(card);
+    const cardElement = createCard(cardInputs);
     cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
     popupCardAdd.close();
     formCardAdd.reset();
