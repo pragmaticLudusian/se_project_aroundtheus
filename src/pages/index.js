@@ -69,10 +69,18 @@ Array.from(document.forms).forEach((formElement) => {
 /* END DECLARATIVE SECTION */
 
 /* PROFILE SECTION */
-const userProfile = new UserInfo({
-  name: profileName,
-  description: profileDescription,
-});
+api
+  .getUserProfileData()
+  .then((profileJson) => {
+    const userProfile = new UserInfo({
+      name: profileJson.name,
+      description: profileJson.about,
+    });
+    Promise.resolve(userProfile);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 const popupProfile = new PopupWithForm(
   modalWindowProfile,
@@ -92,6 +100,7 @@ buttonEditProfile.addEventListener("click", () => {
   formValidators["profile_form"].resetFormValidation(); // input always valid when taking from the html page
   popupProfile.open();
 });
+/* END PROFILE SECTION */
 
 /* CARD ADD SECTION */
 const popupCardAdd = new PopupWithForm(
