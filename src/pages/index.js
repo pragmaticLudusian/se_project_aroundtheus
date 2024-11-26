@@ -23,6 +23,15 @@ import {
   modalCaption,
   cardsGallery,
 } from "../utils/constants.js";
+import Api from "../components/Api.js";
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    "content-type": "application/json",
+    authorization: "c48564f3-ecfb-4a65-b35d-031aabc842ce",
+  },
+});
 
 const createCard = (cardItem) => {
   const card = new Card(cardItem, "#card-template", handleCardPopup);
