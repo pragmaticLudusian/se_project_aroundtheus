@@ -65,3 +65,8 @@ export const modalCaption =
 
 // init the gallery cards and build all derivative actions upon page load
 export const cardsGallery = ".gallery__cards";
+
+/* constant exporting note:
+  usually those that would be referenced in code more than once should be listed from here.
+  selectors != elements; selectors are strings and don't need to be listed here - elems do.
+*/
