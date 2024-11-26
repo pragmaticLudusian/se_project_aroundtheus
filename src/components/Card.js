@@ -26,6 +26,7 @@ export default class Card {
 
   _handleCardDelete() {
     this._cardDelete.closest(".card").remove();
+    this._cardElement = null; // free up resources
   }
 
   _getTemplate() {
