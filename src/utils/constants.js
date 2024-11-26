@@ -36,7 +36,7 @@ export const configuration = {
 };
 
 // init profile editing & related modal window
-export const profile = document.querySelector(".profile");
+const profile = document.querySelector(".profile");
 export const buttonEditProfile = profile.querySelector(".profile__edit-button");
 export const profileName = profile.querySelector(".profile__name");
 export const profileDescription = profile.querySelector(
@@ -44,7 +44,7 @@ export const profileDescription = profile.querySelector(
 );
 export const modalWindowProfile = document.querySelector("#modal_profile");
 // profile form & input vars
-export const formProfile = document.forms["profile_form"];
+const formProfile = document.forms["profile_form"];
 export const inputProfileName = formProfile["name"]; // can refer to by name or id attribs
 export const inputProfileDescription = formProfile["description"];
 
@@ -53,8 +53,6 @@ export const buttonAddCard = profile.querySelector(".profile__add-button");
 export const modalWindowCardAdd = document.querySelector("#modal_card-add");
 // card-add form & input vars
 export const formCardAdd = document.forms["card-add_form"];
-export const inputCardTitle = formCardAdd["title"];
-export const inputCardLink = formCardAdd["link"];
 
 // init card view modal window
 export const modalWindowCardView = document.querySelector("#modal_card-view");
