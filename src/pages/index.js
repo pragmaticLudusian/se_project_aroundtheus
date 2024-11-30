@@ -69,14 +69,16 @@ Array.from(document.forms).forEach((formElement) => {
 /* END DECLARATIVE SECTION */
 
 /* PROFILE SECTION */
+const userProfile = new UserInfo({
+  // pass as arguments the HTML DOM profile elements
+  name: profileName,
+  description: profileDescription,
+});
+
 api
-  .getUserProfileData()
+  .getUserProfileData() // return user from server as JSON object
   .then((profileJson) => {
-    const userProfile = new UserInfo({
-      name: profileJson.name,
-      description: profileJson.about,
-    });
-    Promise.resolve(userProfile);
+    userProfile.setUserInfo(profileJson.name, profileJson.about);
   })
   .catch((err) => {
     console.error(err);
