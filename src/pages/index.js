@@ -12,6 +12,7 @@ import {
   buttonEditProfile,
   profileName,
   profileDescription,
+  profileAvatar,
   modalWindowProfile,
   inputProfileName,
   inputProfileDescription,
@@ -73,12 +74,14 @@ const userProfile = new UserInfo({
   // pass as arguments the HTML DOM profile elements
   name: profileName,
   description: profileDescription,
+  avatar: profileAvatar,
 });
 
 api
   .getUserProfileData() // return user from server as JSON object
-  .then((profileJson) => {
-    userProfile.setUserInfo(profileJson.name, profileJson.about);
+  .then((json) => {
+    userProfile.setUserInfo(json.name, json.about);
+    userProfile.setAvatar(json.avatar);
   })
   .catch((err) => {
     console.error(err);

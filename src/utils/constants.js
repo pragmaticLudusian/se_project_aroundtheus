@@ -42,6 +42,8 @@ export const profileName = profile.querySelector(".profile__name");
 export const profileDescription = profile.querySelector(
   ".profile__description"
 );
+export const profileAvatar = profile.querySelector(".profile__avatar");
+
 export const modalWindowProfile = document.querySelector("#modal_profile");
 // profile form & input vars
 const formProfile = document.forms["profile_form"];

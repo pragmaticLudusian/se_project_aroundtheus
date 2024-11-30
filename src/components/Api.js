@@ -18,5 +18,7 @@ export default class Api {
       });
   }
 
+  setUserProfileData() {}
+
   getInitialCards() {}
 }
