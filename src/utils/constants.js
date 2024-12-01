@@ -1,29 +1,3 @@
-export const initialCards = [
-  {
-    title: "Harbor Springs",
-    link: new URL("../images/cards/harbor-springs.jpg", import.meta.url),
-  },
-  {
-    title: "Downtown Chicago",
-    link: new URL("../images/cards/chicago.jpg", import.meta.url),
-  },
-  {
-    title: "Bethlehem",
-    link: new URL("../images/cards/bethlehem.jpg", import.meta.url),
-  },
-  {
-    title: "Perrysburg",
-    link: new URL("../images/cards/perrysburg.jpg", import.meta.url),
-  },
-  {
-    title: "Venice Beach",
-    link: new URL("../images/cards/venice-beach.jpg", import.meta.url),
-  },
-  {
-    title: "Palace of Fine Arts",
-    link: new URL("../images/cards/palace-finearts.jpg", import.meta.url),
-  },
-];
 export const configuration = {
   // formSelector: ".form", // handled through document.forms pseudo-array
   inputSelector: ".form__input",

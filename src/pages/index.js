@@ -7,7 +7,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 /* DECLARATIVE SECTION */
 import {
-  initialCards,
   configuration,
   buttonEditProfile,
   profileName,
