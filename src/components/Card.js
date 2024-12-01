@@ -1,6 +1,6 @@
 export default class Card {
   constructor(data, cardSelector, handleImageClick) {
-    this._title = data.title; // object
+    this._name = data.name; // object
     this._link = data.link; // object
     this._cardSelector = cardSelector; // template
     this._handleImageClick = handleImageClick; // handleCardPopup() currently @index.js
@@ -41,8 +41,8 @@ export default class Card {
     this._cardElement = this._getTemplate(); // treat like class-specific var (non-static, kinda like let)
     this._cardImage = this._cardElement.querySelector(".card__image"); // this._var would be used for handling image click, so it's not a const here
     this._cardImage.src = this._link; // formally referred to as "class fields" or properties
-    this._cardImage.alt = this._title;
-    this._cardElement.querySelector(".card__title").textContent = this._title;
+    this._cardImage.alt = this._name;
+    this._cardElement.querySelector(".card__title").textContent = this._name;
     this._cardLike = this._cardElement.querySelector(".card__like");
     this._cardDelete = this._cardElement.querySelector(".card__delete-button");
     this._setEventListeners();
@@ -51,6 +51,6 @@ export default class Card {
   }
 
   getInfo() {
-    return { title: this._title, link: this._link };
+    return { name: this._name, link: this._link };
   }
 }

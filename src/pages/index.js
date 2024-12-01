@@ -34,26 +34,28 @@ const api = new Api({
   },
 });
 
-api.getInitialCards().then((json) => {
-  console.log(json);
-});
+api
+  .getInitialCards() // return the card array from the server
+  .then((cardArray) => {
+    // because the section const has to be accessed in the async bubble, exporting it would be a slight more complicated when new cards have to be added to the server, not just from it
+    // also of note is that the "name" attrib is standard to the arguably-dupe "name" for the profile section
+    const cardSection = new Section(
+      {
+        items: cardArray,
+        renderer: (item) => {
+          const cardElement = createCard(item);
+          cardSection.addItem(cardElement);
+        },
+      },
+      cardsGallery
+    );
+    cardSection.renderItems();
+  });
 
 const createCard = (cardItem) => {
   const card = new Card(cardItem, "#card-template", handleCardPopup);
   return card.generateCard();
 };
-
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      cardSection.addItem(cardElement);
-    },
-  },
-  cardsGallery
-);
-cardSection.renderItems();
 
 const popupImage = new PopupWithImage(modalWindowCardView, {
   image: modalImage,
