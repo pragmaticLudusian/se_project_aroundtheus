@@ -33,6 +33,8 @@ const api = new Api({
   },
 });
 
+let cardSection; // since the card section is being tied to the DOM and is needed to both init and add cards later on, it would need to be declared at the global scope and can be reassigned with let.
+
 api.getUserAndCards([
   // this is a Promise array that would get fulfilled when all subsequent promises are fulfilled too (&&-style)
   api
@@ -46,7 +48,7 @@ api.getUserAndCards([
     .then((cardArray) => {
       // because the section const has to be accessed in the async bubble, exporting it would be a slight more complicated when new cards have to be added to the server, not just from it
       // also of note is that the "name" attrib is standard to the arguably-dupe "name" for the profile section
-      const cardSection = new Section(
+      cardSection = new Section(
         {
           items: cardArray,
           renderer: (item) => {
@@ -116,10 +118,12 @@ buttonEditProfile.addEventListener("click", () => {
 /* CARD ADD SECTION */
 const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
-  (event, cardInputs) => {
+  (event, { name, link }) => {
     event.preventDefault();
-    const cardElement = createCard(cardInputs);
-    cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
+    api.addNewCard(name, link).then(() => {
+      const cardElement = createCard({ name, link });
+      cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
+    });
     popupCardAdd.close();
     formCardAdd.reset();
     formValidators["card-add_form"].disableButton();

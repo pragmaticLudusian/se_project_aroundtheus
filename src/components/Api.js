@@ -51,4 +51,19 @@ export default class Api {
         console.error(err);
       });
   }
+
+  addNewCard(name, link) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({ name: name, link: link }),
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return Promise.reject(`error ${res.status} while adding a new card`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }
