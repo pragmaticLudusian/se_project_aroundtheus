@@ -1,9 +1,10 @@
 export default class Card {
-  constructor(data, cardSelector, handleImageClick) {
+  constructor(data, cardSelector, handleImageClick, handleCardDelete) {
     this._name = data.name; // object
     this._link = data.link; // object
     this._cardSelector = cardSelector; // template
     this._handleImageClick = handleImageClick; // handleCardPopup() currently @index.js
+    this._handleCardDelete = handleCardDelete; // confirmation popup to delete a card
   }
 
   _setEventListeners() {

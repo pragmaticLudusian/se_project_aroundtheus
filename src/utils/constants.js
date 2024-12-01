@@ -37,6 +37,10 @@ export const modalCaption =
   modalWindowCardView.querySelector(".modal__caption");
 // since these are singular elements that would change content for many images/captions, qS should only be used once here
 
+// init card delete modal window
+export const modalWindowCardDelete =
+  document.querySelector("#modal_card-delete");
+
 // init the gallery cards and build all derivative actions upon page load
 export const cardsGallery = ".gallery__cards";
 

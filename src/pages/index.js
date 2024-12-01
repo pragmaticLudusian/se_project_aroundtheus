@@ -21,6 +21,7 @@ import {
   modalWindowCardView,
   modalImage,
   modalCaption,
+  modalWindowCardDelete,
   cardsGallery,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
@@ -63,7 +64,12 @@ api.getUserAndCards([
 ]);
 
 const createCard = (cardItem) => {
-  const card = new Card(cardItem, "#card-template", handleCardPopup);
+  const card = new Card(
+    cardItem,
+    "#card-template",
+    handleCardPopup,
+    handleCardDelete
+  );
   return card.generateCard();
 };
 
@@ -75,6 +81,18 @@ popupImage.setEventListeners();
 function handleCardPopup(card) {
   // suggested by Sprint 7 project to keep this func in index.js for now
   popupImage.open(card); // since "this" is prohibited outside of classes, and passing an arg to the func as a param to this func causes a lexical ref err, then in the class's handler func it would need to pass the ready-made getInfo() method to pass through unimpeded
+}
+
+const popupCardDelete = new PopupWithForm(modalWindowCardDelete, (event) => {
+  event.preventDefault();
+  console.log(event);
+  popupCardDelete.close();
+});
+popupCardDelete.setEventListeners();
+
+function handleCardDelete(card) {
+  // modalWindowCardDelete.classList.toggle("modal_opened");
+  popupCardDelete.open(card);
 }
 
 const formValidators = {};
