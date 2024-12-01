@@ -151,6 +151,27 @@
         <p class="modal__caption"></p>
       </div>
     </div>
+    <div class="modal modal_opened" id="modal_card-delete">
+      <form
+        class="modal__container modal__container_type_form"
+        id="card-delete_form"
+        novalidate
+      >
+        <button
+          type="button"
+          class="modal__close-button"
+          id="modal_card-delete_close"
+        ></button>
+        <h2 class="modal__title">Are you sure?</h2>
+        <button
+          type="submit"
+          class="form__save-button form__save-button_active"
+          id="card-delete_form_save"
+        >
+          Yes
+        </button>
+      </form>
+    </div>
     <template id="card-template">
       <li class="card">
         <button class="card__delete-button" type="button"></button>
