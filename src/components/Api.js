@@ -18,8 +18,6 @@ export default class Api {
       });
   }
 
-  setUserProfileData() {}
-
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
@@ -27,6 +25,21 @@ export default class Api {
       .then((res) => {
         if (res.ok) return res.json();
         return Promise.reject(`error ${res.status} while getting cards data`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  setUserProfileData(name, description) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ name: name, about: description }),
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return Promise.reject(`error ${res.status} while updating user data`);
       })
       .catch((err) => {
         console.error(err);

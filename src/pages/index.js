@@ -96,7 +96,9 @@ const popupProfile = new PopupWithForm(
   modalWindowProfile,
   (event, { name, description }) => {
     event.preventDefault();
-    userProfile.setUserInfo(name, description);
+    api.setUserProfileData(name, description).then(() => {
+      userProfile.setUserInfo(name, description);
+    });
     popupProfile.close();
   },
   configuration.inputSelector
