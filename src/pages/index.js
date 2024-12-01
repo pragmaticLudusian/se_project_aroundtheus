@@ -34,6 +34,10 @@ const api = new Api({
   },
 });
 
+api.getInitialCards().then((json) => {
+  console.log(json);
+});
+
 const createCard = (cardItem) => {
   const card = new Card(cardItem, "#card-template", handleCardPopup);
   return card.generateCard();
@@ -78,7 +82,7 @@ const userProfile = new UserInfo({
 });
 
 api
-  .getUserProfileData() // return user from server as JSON object
+  .getUserProfileData() // return user from server as a JSON object
   .then((json) => {
     userProfile.setUserInfo(json.name, json.about);
     userProfile.setAvatar(json.avatar);

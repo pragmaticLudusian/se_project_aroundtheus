@@ -11,7 +11,7 @@ export default class Api {
     })
       .then((res) => {
         if (res.ok) return res.json(); // if successful, returns a user object
-        return Promise.reject(`error ${res.status}`); // otherwise, output an error to .catch
+        return Promise.reject(`error ${res.status} while getting user data`); // otherwise, output an error to .catch
       })
       .catch((err) => {
         console.error(err);
@@ -20,5 +20,16 @@ export default class Api {
 
   setUserProfileData() {}
 
-  getInitialCards() {}
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return Promise.reject(`error ${res.status} while getting cards data`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }
