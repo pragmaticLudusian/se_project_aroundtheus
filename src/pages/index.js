@@ -33,23 +33,32 @@ const api = new Api({
   },
 });
 
-api
-  .getInitialCards() // return the card array from the server
-  .then((cardArray) => {
-    // because the section const has to be accessed in the async bubble, exporting it would be a slight more complicated when new cards have to be added to the server, not just from it
-    // also of note is that the "name" attrib is standard to the arguably-dupe "name" for the profile section
-    const cardSection = new Section(
-      {
-        items: cardArray,
-        renderer: (item) => {
-          const cardElement = createCard(item);
-          cardSection.addItem(cardElement);
+api.getUserAndCards([
+  // this is a Promise array that would get fulfilled when all subsequent promises are fulfilled too (&&-style)
+  api
+    .getUserProfileData() // return user from server as a JSON object
+    .then((json) => {
+      userProfile.setUserInfo(json.name, json.about); // despite being async, this will already be initialized thanks to event loop
+      userProfile.setAvatar(json.avatar);
+    }),
+  api
+    .getInitialCards() // return the card array from the server
+    .then((cardArray) => {
+      // because the section const has to be accessed in the async bubble, exporting it would be a slight more complicated when new cards have to be added to the server, not just from it
+      // also of note is that the "name" attrib is standard to the arguably-dupe "name" for the profile section
+      const cardSection = new Section(
+        {
+          items: cardArray,
+          renderer: (item) => {
+            const cardElement = createCard(item);
+            cardSection.addItem(cardElement);
+          },
         },
-      },
-      cardsGallery
-    );
-    cardSection.renderItems();
-  });
+        cardsGallery
+      );
+      cardSection.renderItems();
+    }),
+]);
 
 const createCard = (cardItem) => {
   const card = new Card(cardItem, "#card-template", handleCardPopup);
@@ -81,16 +90,6 @@ const userProfile = new UserInfo({
   description: profileDescription,
   avatar: profileAvatar,
 });
-
-api
-  .getUserProfileData() // return user from server as a JSON object
-  .then((json) => {
-    userProfile.setUserInfo(json.name, json.about);
-    userProfile.setAvatar(json.avatar);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
 
 const popupProfile = new PopupWithForm(
   modalWindowProfile,

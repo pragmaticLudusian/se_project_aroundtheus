@@ -31,6 +31,12 @@ export default class Api {
       });
   }
 
+  getUserAndCards(promiseArray) {
+    return Promise.all(promiseArray).catch((err) => {
+      console.error("Somethnig went wrong :(", err);
+    });
+  }
+
   setUserProfileData(name, description) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
