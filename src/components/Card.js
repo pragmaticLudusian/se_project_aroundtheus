@@ -3,14 +3,14 @@ export default class Card {
     { name, link, _id },
     cardSelector,
     handleImageClick,
-    handleCardPopupDelete
+    handleCardDelete
   ) {
     this._name = name;
     this._link = link;
     this._id = _id;
     this._cardSelector = cardSelector; // template
     this._handleImageClick = handleImageClick; // handleCardPopup() currently @index.js
-    this._handleCardPopupDelete = handleCardPopupDelete; // confirmation popup to delete a card
+    this._handleCardDelete = handleCardDelete; // confirmation popup to delete a card
   }
 
   _setEventListeners() {
@@ -23,8 +23,8 @@ export default class Card {
     });
 
     this._cardDelete.addEventListener("click", () => {
-      // this._handleCardDelete(this);
-      this._handleCardPopupDelete(this);
+      // this._handleCardDelete(this); // handle override
+      this._handleCardDelete(this);
     });
   }
 
@@ -32,7 +32,8 @@ export default class Card {
     this._cardLike.classList.toggle("card__like_active");
   }
 
-  _handleCardDelete() {
+  deleteCard() {
+    // works with the same principle of generateCard(), also possible from index.js
     this._cardDelete.closest(".card").remove();
     this._cardElement = null; // free up resources
   }

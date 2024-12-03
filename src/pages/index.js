@@ -96,7 +96,7 @@ const popupCardDelete = new PopupWithConfirm(
     api
       .deleteCard(card.getInfo().id)
       .then(() => {
-        card._handleCardDelete();
+        card.deleteCard();
       })
       .catch((err) => {
         console.error(err); // w/out a way to return or print error to console it gets uncaught
@@ -151,8 +151,8 @@ const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
   (event, { name, link }) => {
     event.preventDefault();
-    api.addNewCard(name, link).then(() => {
-      const cardElement = createCard({ name, link });
+    api.addNewCard(name, link).then((newCard) => {
+      const cardElement = createCard(newCard);
       cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
     });
     popupCardAdd.close();
