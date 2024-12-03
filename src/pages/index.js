@@ -69,7 +69,7 @@ const createCard = (cardItem) => {
     cardItem,
     "#card-template",
     handleCardPopup,
-    handleCardDelete
+    handleCardPopupDelete
   );
   return card.generateCard();
 };
@@ -84,7 +84,7 @@ const popupImage = new PopupWithImage(modalWindowCardView, {
 });
 popupImage.setEventListeners();
 
-function handleCardDelete(card) {
+function handleCardPopupDelete(card) {
   popupCardDelete.open(card);
 }
 const popupCardDelete = new PopupWithConfirm(
