@@ -4,6 +4,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 /* DECLARATIVE SECTION */
 import {
@@ -73,27 +74,29 @@ const createCard = (cardItem) => {
   return card.generateCard();
 };
 
+function handleCardPopup(card) {
+  // suggested by Sprint 7 project to keep this func in index.js for now
+  popupImage.open(card); // since "this" is prohibited outside of classes, and passing an arg to the func as a param to this func causes a lexical ref err, then in the class's handler func it would need to pass the ready-made getInfo() method to pass through unimpeded
+}
 const popupImage = new PopupWithImage(modalWindowCardView, {
   image: modalImage,
   caption: modalCaption,
 });
 popupImage.setEventListeners();
-function handleCardPopup(card) {
-  // suggested by Sprint 7 project to keep this func in index.js for now
-  popupImage.open(card); // since "this" is prohibited outside of classes, and passing an arg to the func as a param to this func causes a lexical ref err, then in the class's handler func it would need to pass the ready-made getInfo() method to pass through unimpeded
-}
-
-const popupCardDelete = new PopupWithForm(modalWindowCardDelete, (event) => {
-  event.preventDefault();
-  console.log(event);
-  popupCardDelete.close();
-});
-popupCardDelete.setEventListeners();
 
 function handleCardDelete(card) {
-  // modalWindowCardDelete.classList.toggle("modal_opened");
   popupCardDelete.open(card);
 }
+const popupCardDelete = new PopupWithConfirm(
+  modalWindowCardDelete,
+  (event, card) => {
+    // this subclass acts like the form popup subclass except it has no inputs. It does however help to pass the necessary param to handle card deletion
+    event.preventDefault();
+    console.log(card);
+    popupCardDelete.close();
+  }
+);
+popupCardDelete.setEventListeners();
 
 const formValidators = {};
 Array.from(document.forms).forEach((formElement) => {
