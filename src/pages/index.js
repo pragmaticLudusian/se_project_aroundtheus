@@ -92,8 +92,18 @@ const popupCardDelete = new PopupWithConfirm(
   (event, card) => {
     // this subclass acts like the form popup subclass except it has no inputs. It does however help to pass the necessary param to handle card deletion
     event.preventDefault();
-    console.log(card);
-    popupCardDelete.close();
+    // console.log(card._cardElement);
+    api
+      .deleteCard(card.getInfo().id)
+      .then(() => {
+        card._handleCardDelete();
+      })
+      .catch((err) => {
+        console.error(err); // w/out a way to return or print error to console it gets uncaught
+      })
+      .finally(() => {
+        popupCardDelete.close();
+      });
   }
 );
 popupCardDelete.setEventListeners();

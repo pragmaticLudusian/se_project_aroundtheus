@@ -66,4 +66,18 @@ export default class Api {
         console.error(err);
       });
   }
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return Promise.reject(`error ${res.status} while deleting a card`);
+      })
+      .catch((err) => {
+        return Promise.reject(err); // properly return a rejected Promise state
+      });
+  }
 }

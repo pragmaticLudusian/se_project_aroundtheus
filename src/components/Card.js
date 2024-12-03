@@ -1,7 +1,13 @@
 export default class Card {
-  constructor(data, cardSelector, handleImageClick, handleCardPopupDelete) {
-    this._name = data.name; // object
-    this._link = data.link; // object
+  constructor(
+    { name, link, _id },
+    cardSelector,
+    handleImageClick,
+    handleCardPopupDelete
+  ) {
+    this._name = name;
+    this._link = link;
+    this._id = _id;
     this._cardSelector = cardSelector; // template
     this._handleImageClick = handleImageClick; // handleCardPopup() currently @index.js
     this._handleCardPopupDelete = handleCardPopupDelete; // confirmation popup to delete a card
@@ -17,7 +23,7 @@ export default class Card {
     });
 
     this._cardDelete.addEventListener("click", () => {
-      this._handleCardDelete(this);
+      // this._handleCardDelete(this);
       this._handleCardPopupDelete(this);
     });
   }
@@ -53,6 +59,6 @@ export default class Card {
   }
 
   getInfo() {
-    return { name: this._name, link: this._link };
+    return { name: this._name, link: this._link, id: this._id };
   }
 }
