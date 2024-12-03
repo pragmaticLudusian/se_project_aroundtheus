@@ -44,6 +44,9 @@ api.getUserAndCards([
     .then((json) => {
       userProfile.setUserInfo(json.name, json.about); // despite being async, this will already be initialized thanks to event loop
       userProfile.setAvatar(json.avatar);
+    })
+    .catch((err) => {
+      console.error(err); // w/out a way to return or print error to console it gets uncaught
     }),
   api
     .getInitialCards() // return the card array from the server
@@ -61,6 +64,9 @@ api.getUserAndCards([
         cardsGallery
       );
       cardSection.renderItems();
+    })
+    .catch((err) => {
+      console.error(err);
     }),
 ]);
 
@@ -99,7 +105,7 @@ const popupCardDelete = new PopupWithConfirm(
         card.deleteCard();
       })
       .catch((err) => {
-        console.error(err); // w/out a way to return or print error to console it gets uncaught
+        console.error(err);
       })
       .finally(() => {
         popupCardDelete.close();
@@ -128,9 +134,14 @@ const popupProfile = new PopupWithForm(
   modalWindowProfile,
   (event, { name, description }) => {
     event.preventDefault();
-    api.setUserProfileData(name, description).then(() => {
-      userProfile.setUserInfo(name, description);
-    });
+    api
+      .setUserProfileData(name, description)
+      .then(() => {
+        userProfile.setUserInfo(name, description);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     popupProfile.close();
   },
   configuration.inputSelector
@@ -151,10 +162,15 @@ const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
   (event, { name, link }) => {
     event.preventDefault();
-    api.addNewCard(name, link).then((newCard) => {
-      const cardElement = createCard(newCard);
-      cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
-    });
+    api
+      .addNewCard(name, link)
+      .then((newCard) => {
+        const cardElement = createCard(newCard);
+        cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     popupCardAdd.close();
     formCardAdd.reset();
     formValidators["card-add_form"].disableButton();

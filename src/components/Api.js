@@ -14,7 +14,7 @@ export default class Api {
         return Promise.reject(`error ${res.status} while getting user data`); // otherwise, output an error to .catch
       })
       .catch((err) => {
-        console.error(err);
+        return Promise.reject(err);
       });
   }
 
@@ -27,7 +27,7 @@ export default class Api {
         return Promise.reject(`error ${res.status} while getting cards data`);
       })
       .catch((err) => {
-        console.error(err);
+        return Promise.reject(err);
       });
   }
 
@@ -48,7 +48,7 @@ export default class Api {
         return Promise.reject(`error ${res.status} while updating user data`);
       })
       .catch((err) => {
-        console.error(err);
+        return Promise.reject(err);
       });
   }
 
@@ -63,7 +63,7 @@ export default class Api {
         return Promise.reject(`error ${res.status} while adding a new card`);
       })
       .catch((err) => {
-        console.error(err);
+        return Promise.reject(err);
       });
   }
 
