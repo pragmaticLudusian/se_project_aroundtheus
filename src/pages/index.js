@@ -45,9 +45,9 @@ api.getUserAndCards([
   // this is a Promise array that would get fulfilled when all subsequent promises are fulfilled too (&&-style)
   api
     .getUserProfileData() // return user from server as a JSON object
-    .then((json) => {
-      userProfile.setUserInfo(json.name, json.about); // despite being async, this will already be initialized thanks to event loop
-      userProfile.setAvatar(json.avatar);
+    .then(({ name, about, avatar }) => {
+      userProfile.setUserInfo(name, about); // despite being async, this will already be initialized thanks to event loop
+      userProfile.setAvatar(avatar);
     })
     .catch((err) => {
       console.error(err); // w/out a way to return or print error to console it gets uncaught
@@ -55,8 +55,7 @@ api.getUserAndCards([
   api
     .getInitialCards() // return the card array from the server
     .then((cardArray) => {
-      // because the section const has to be accessed in the async bubble, exporting it would be a slight more complicated when new cards have to be added to the server, not just from it
-      // also of note is that the "name" attrib is standard to the arguably-dupe "name" for the profile section
+      // because the section var has to be accessed in the async bubble, exporting it would be a slight more complicated when new cards have to be added to the server, not just from it
       cardSection = new Section(
         {
           items: cardArray,
@@ -182,10 +181,10 @@ buttonAddCard.addEventListener("click", () => {
 
 const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
-  (event, { name, link }) => {
+  (event, { title, link }) => {
     event.preventDefault();
     api
-      .addNewCard(name, link)
+      .addNewCard(title, link)
       .then((newCard) => {
         const cardElement = createCard(newCard);
         cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones

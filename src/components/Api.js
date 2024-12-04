@@ -52,11 +52,11 @@ export default class Api {
       });
   }
 
-  addNewCard(name, link) {
+  addNewCard(title, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
-      body: JSON.stringify({ name: name, link: link }),
+      body: JSON.stringify({ name: title, link: link }),
     })
       .then((res) => {
         if (res.ok) return res.json();
