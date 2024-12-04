@@ -12,6 +12,7 @@ import {
   buttonEditProfile,
   profileName,
   profileDescription,
+  buttonUpdateAvatar,
   profileAvatar,
   modalWindowProfile,
   inputProfileName,
@@ -23,6 +24,9 @@ import {
   modalImage,
   modalCaption,
   modalWindowCardDelete,
+  modalWindowProfileAvatar,
+  formProfileAvatar,
+  inputProfileAvatar,
   cardsGallery,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
@@ -91,30 +95,6 @@ const popupImage = new PopupWithImage(modalWindowCardView, {
 });
 popupImage.setEventListeners();
 
-function handleCardPopupDelete(card) {
-  popupCardDelete.open(card);
-}
-const popupCardDelete = new PopupWithConfirm(
-  modalWindowCardDelete,
-  (event, card) => {
-    // this subclass acts like the form popup subclass except it has no inputs. It does however help to pass the necessary param to handle card deletion
-    event.preventDefault();
-    // console.log(card._cardElement);
-    api
-      .deleteCard(card.getInfo().id)
-      .then(() => {
-        card.deleteCard();
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        popupCardDelete.close();
-      });
-  }
-);
-popupCardDelete.setEventListeners();
-
 function handleCardLike(card) {
   const request = card.getInfo().isLiked ? "unlikeCard" : "likeCard"; // inverted logic gets handled here
   api[request](card.getInfo().id)
@@ -142,7 +122,15 @@ const userProfile = new UserInfo({
   avatar: profileAvatar,
 });
 
-const popupProfile = new PopupWithForm(
+buttonEditProfile.addEventListener("click", () => {
+  const { name, description } = userProfile.getUserInfo();
+  inputProfileName.value = name;
+  inputProfileDescription.value = description;
+  formValidators["profile_info_form"].resetFormValidation(); // input always valid when taking from the html page
+  popupProfileInfo.open();
+});
+
+const popupProfileInfo = new PopupWithForm(
   modalWindowProfile,
   (event, { name, description }) => {
     event.preventDefault();
@@ -154,22 +142,44 @@ const popupProfile = new PopupWithForm(
       .catch((err) => {
         console.error(err);
       });
-    popupProfile.close();
+    popupProfileInfo.close();
   },
   configuration.inputSelector
 );
-popupProfile.setEventListeners();
+popupProfileInfo.setEventListeners();
+/* END PROFILE INFO SECTION */
 
-buttonEditProfile.addEventListener("click", () => {
-  const { name, description } = userProfile.getUserInfo();
-  inputProfileName.value = name;
-  inputProfileDescription.value = description;
-  formValidators["profile_form"].resetFormValidation(); // input always valid when taking from the html page
-  popupProfile.open();
+/* PROFILE AVATAR SECTION */
+buttonUpdateAvatar.addEventListener("click", () => {
+  popupProfileAvatar.open();
 });
-/* END PROFILE SECTION */
+const popupProfileAvatar = new PopupWithForm(
+  modalWindowProfileAvatar,
+  (event, { avatar }) => {
+    event.preventDefault();
+    api
+      .setUserProfileAvatar(avatar)
+      .then(() => {
+        profileAvatar.src = avatar;
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        popupProfileAvatar.close();
+      });
+  },
+  configuration.inputSelector
+);
+popupProfileAvatar.setEventListeners();
+/* END PROFILE AVATAR SECTION */
 
 /* CARD ADD SECTION */
+buttonAddCard.addEventListener("click", () => {
+  // don't show errors upon opening the modal when no input is issued
+  popupCardAdd.open();
+});
+
 const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
   (event, { name, link }) => {
@@ -190,9 +200,30 @@ const popupCardAdd = new PopupWithForm(
   configuration.inputSelector
 );
 popupCardAdd.setEventListeners();
-
-buttonAddCard.addEventListener("click", () => {
-  // don't show errors upon opening the modal when no input is issued
-  popupCardAdd.open();
-});
 /* END CARD ADD SECTION */
+
+/* CARD DELETE SECTION */
+function handleCardPopupDelete(card) {
+  popupCardDelete.open(card);
+}
+const popupCardDelete = new PopupWithConfirm(
+  modalWindowCardDelete,
+  (event, card) => {
+    // this subclass acts like the form popup subclass except it has no inputs. It does however help to pass the necessary param to handle card deletion
+    event.preventDefault();
+    // console.log(card._cardElement);
+    api
+      .deleteCard(card.getInfo().id)
+      .then(() => {
+        card.deleteCard();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        popupCardDelete.close();
+      });
+  }
+);
+popupCardDelete.setEventListeners();
+/* END CARD DELETE SECTION */

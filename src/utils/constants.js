@@ -17,12 +17,20 @@ export const profileDescription = profile.querySelector(
   ".profile__description"
 );
 export const profileAvatar = profile.querySelector(".profile__avatar");
-
-export const modalWindowProfile = document.querySelector("#modal_profile");
-// profile form & input vars
-const formProfile = document.forms["profile_form"];
+export const buttonUpdateAvatar = profile.querySelector(
+  ".profile__avatar-edit"
+);
+// profile (info) form & input vars
+export const modalWindowProfile = document.querySelector("#modal_profile_info");
+const formProfile = document.forms["profile_info_form"];
 export const inputProfileName = formProfile["name"]; // can refer to by name or id attribs
 export const inputProfileDescription = formProfile["description"];
+// profile avatar from & input var
+export const modalWindowProfileAvatar = document.querySelector(
+  "#modal_profile_avatar"
+);
+export const formProfileAvatar = document.forms["profile_avatar_form"];
+export const inputProfileAvatar = formProfileAvatar["avatar"];
 
 // init card add & related modal window
 export const buttonAddCard = profile.querySelector(".profile__add-button");
