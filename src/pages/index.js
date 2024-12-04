@@ -25,7 +25,6 @@ import {
   modalCaption,
   modalWindowCardDelete,
   modalWindowProfileAvatar,
-  formProfileAvatar,
   inputProfileAvatar,
   cardsGallery,
 } from "../utils/constants.js";
@@ -84,16 +83,6 @@ const createCard = (cardItem) => {
   return card.generateCard();
 };
 
-function handleCardPopupImage(card) {
-  // suggested by Sprint 7 project to keep this func in index.js for now
-  popupImage.open(card); // since "this" is prohibited outside of classes, and passing an arg to the func as a param to this func causes a lexical ref err, then in the class's handler func it would need to pass the ready-made getInfo() method to pass through unimpeded
-}
-const popupImage = new PopupWithImage(modalWindowCardView, {
-  image: modalImage,
-  caption: modalCaption,
-});
-popupImage.setEventListeners();
-
 function handleCardLike(card) {
   const request = card.getInfo().isLiked ? "unlikeCard" : "likeCard"; // inverted logic gets handled here
   api[request](card.getInfo().id)
@@ -113,7 +102,7 @@ Array.from(document.forms).forEach((formElement) => {
 });
 /* END DECLARATIVE SECTION */
 
-/* PROFILE SECTION */
+/* PROFILE INFO SECTION */
 const userProfile = new UserInfo({
   // pass as arguments the HTML DOM profile elements
   name: profileName,
@@ -150,6 +139,7 @@ popupProfileInfo.setEventListeners();
 
 /* PROFILE AVATAR SECTION */
 buttonUpdateAvatar.addEventListener("click", () => {
+  inputProfileAvatar.value = profileAvatar.src;
   popupProfileAvatar.open();
 });
 const popupProfileAvatar = new PopupWithForm(
@@ -200,6 +190,18 @@ const popupCardAdd = new PopupWithForm(
 );
 popupCardAdd.setEventListeners();
 /* END CARD ADD SECTION */
+
+/* CARD VIEW IMAGE SECTION */
+function handleCardPopupImage(card) {
+  // suggested by Sprint 7 project to keep this func in index.js for now
+  popupImage.open(card); // since "this" is prohibited outside of classes, and passing an arg to the func as a param to this func causes a lexical ref err, then in the class's handler func it would need to pass the ready-made getInfo() method to pass through unimpeded
+}
+const popupImage = new PopupWithImage(modalWindowCardView, {
+  image: modalImage,
+  caption: modalCaption,
+});
+popupImage.setEventListeners();
+/* END CARD VIEW IMAGE SECTION */
 
 /* CARD DELETE SECTION */
 function handleCardPopupDelete(card) {

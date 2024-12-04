@@ -29,7 +29,7 @@ export const inputProfileDescription = formProfile["description"];
 export const modalWindowProfileAvatar = document.querySelector(
   "#modal_profile_avatar"
 );
-export const formProfileAvatar = document.forms["profile_avatar_form"];
+const formProfileAvatar = document.forms["profile_avatar_form"];
 export const inputProfileAvatar = formProfileAvatar["avatar"];
 
 // init card add & related modal window
