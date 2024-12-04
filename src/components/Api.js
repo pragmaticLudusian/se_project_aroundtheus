@@ -14,7 +14,7 @@ export default class Api {
         return Promise.reject(`error ${res.status} while getting user data`); // otherwise, output an error to .catch
       })
       .catch((err) => {
-        return Promise.reject(err);
+        return Promise.reject(err); // properly return a rejected Promise state
       });
   }
 
@@ -77,7 +77,37 @@ export default class Api {
         return Promise.reject(`error ${res.status} while deleting a card`);
       })
       .catch((err) => {
-        return Promise.reject(err); // properly return a rejected Promise state
+        return Promise.reject(err);
+      });
+  }
+
+  likeCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+      body: JSON.stringify({ isLiked: true }),
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return Promise.reject(`error ${res.status} while liking a card`);
+      })
+      .catch((err) => {
+        return Promise.reject(err);
+      });
+  }
+
+  unlikeCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+      body: JSON.stringify({ isLiked: false }),
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return Promise.reject(`error ${res.status} while unliking a card`);
+      })
+      .catch((err) => {
+        return Promise.reject(err);
       });
   }
 }
