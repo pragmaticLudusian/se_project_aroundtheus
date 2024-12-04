@@ -83,9 +83,8 @@ export default class Api {
 
   likeCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-      method: "PUT",
+      method: "PUT", // despite being "PUT", the server handles the boolean just fine w/out a body inside the request
       headers: this._headers,
-      body: JSON.stringify({ isLiked: true }),
     })
       .then((res) => {
         if (res.ok) return res.json();
@@ -100,7 +99,6 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-      body: JSON.stringify({ isLiked: false }),
     })
       .then((res) => {
         if (res.ok) return res.json();

@@ -74,13 +74,14 @@ const createCard = (cardItem) => {
   const card = new Card(
     cardItem,
     "#card-template",
-    handleCardPopup,
-    handleCardPopupDelete
+    handleCardPopupImage,
+    handleCardPopupDelete,
+    handleCardLike
   );
   return card.generateCard();
 };
 
-function handleCardPopup(card) {
+function handleCardPopupImage(card) {
   // suggested by Sprint 7 project to keep this func in index.js for now
   popupImage.open(card); // since "this" is prohibited outside of classes, and passing an arg to the func as a param to this func causes a lexical ref err, then in the class's handler func it would need to pass the ready-made getInfo() method to pass through unimpeded
 }
@@ -113,6 +114,17 @@ const popupCardDelete = new PopupWithConfirm(
   }
 );
 popupCardDelete.setEventListeners();
+
+function handleCardLike(card) {
+  const request = card.getInfo().isLiked ? "unlikeCard" : "likeCard"; // inverted logic gets handled here
+  api[request](card.getInfo().id)
+    .then((cardRes) => {
+      card.likeCard(cardRes.isLiked);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
 
 const formValidators = {};
 Array.from(document.forms).forEach((formElement) => {

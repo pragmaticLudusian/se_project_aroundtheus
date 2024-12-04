@@ -1,21 +1,24 @@
 export default class Card {
   constructor(
-    { name, link, _id },
+    { name, link, _id, isLiked }, // reflect from JSON
     cardSelector,
     handleImageClick,
-    handleCardDelete
+    handleCardDelete,
+    handleCardLike
   ) {
     this._name = name;
     this._link = link;
     this._id = _id;
+    this._isLiked = isLiked;
     this._cardSelector = cardSelector; // template
     this._handleImageClick = handleImageClick; // handleCardPopup() currently @index.js
     this._handleCardDelete = handleCardDelete; // confirmation popup to delete a card
+    this._handleCardLike = handleCardLike;
   }
 
   _setEventListeners() {
     this._cardImage.addEventListener("click", () => {
-      this._handleImageClick(this.getInfo());
+      this._handleImageClick(this.getInfo()); // use just name and link to load the popup image
     });
 
     this._cardLike.addEventListener("click", () => {
@@ -23,17 +26,19 @@ export default class Card {
     });
 
     this._cardDelete.addEventListener("click", () => {
-      // this._handleCardDelete(this); // handle override
-      this._handleCardDelete(this);
+      this._handleCardDelete(this); // same here, but here the element's going to be needed to delete the card from DOM just after requesting the api to delete from the server
     });
   }
 
-  _handleCardLike() {
-    this._cardLike.classList.toggle("card__like_active");
+  likeCard(isLiked) {
+    this._isLiked = isLiked;
+    const method = this._isLiked ? "add" : "remove";
+    this._cardLike.classList[method]("card__like_active");
+    // console.log(this.getInfo(), this._isLiked);
   }
 
   deleteCard() {
-    // works with the same principle of generateCard(), also possible from index.js
+    // works with the same principle of generateCard(), but also possible from index.js
     this._cardDelete.closest(".card").remove();
     this._cardElement = null; // free up resources
   }
@@ -53,6 +58,7 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._cardElement.querySelector(".card__title").textContent = this._name;
     this._cardLike = this._cardElement.querySelector(".card__like");
+    this.likeCard(this._isLiked);
     this._cardDelete = this._cardElement.querySelector(".card__delete-button");
     this._setEventListeners();
 
@@ -60,6 +66,11 @@ export default class Card {
   }
 
   getInfo() {
-    return { name: this._name, link: this._link, id: this._id };
+    return {
+      name: this._name,
+      link: this._link,
+      id: this._id,
+      isLiked: this._isLiked,
+    };
   }
 }
