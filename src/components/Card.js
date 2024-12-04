@@ -11,9 +11,9 @@ export default class Card {
     this._id = _id;
     this._isLiked = isLiked;
     this._cardSelector = cardSelector; // template
-    this._handleImageClick = handleImageClick; // handleCardPopup() currently @index.js
-    this._handleCardDelete = handleCardDelete; // confirmation popup to delete a card
-    this._handleCardLike = handleCardLike;
+    this._handleImageClick = handleImageClick; // handleCardPopupImage(); all these are currently @index.js
+    this._handleCardDelete = handleCardDelete; // handleCardPopupDelete(); confirmation popup to delete a card
+    this._handleCardLike = handleCardLike; // handleCardLike(); used to handle the DOM side of the like boolean status from the server
   }
 
   _setEventListeners() {
@@ -67,7 +67,7 @@ export default class Card {
 
   getInfo() {
     return {
-      name: this._name,
+      name: this._name, // even if the form to add a card is called "title", it can be aliased by ref or by deconstructors
       link: this._link,
       id: this._id,
       isLiked: this._isLiked,
