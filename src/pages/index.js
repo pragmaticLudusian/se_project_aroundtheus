@@ -113,12 +113,12 @@ const popupProfileInfo = new PopupWithForm(
       .setUserProfileData(name, description)
       .then(() => {
         userProfile.setUserInfo(name, description);
+        popupProfileInfo.close();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {
-        popupProfileInfo.close();
         popupProfileInfo.setRender(false);
       });
   },
@@ -134,6 +134,7 @@ buttonUpdateAvatar.addEventListener("click", () => {
   inputProfileAvatar.value = profileAvatar.src;
   popupProfileAvatar.open();
 });
+
 const popupProfileAvatar = new PopupWithForm(
   modalWindowProfileAvatar,
   (event, { avatar }) => {
@@ -143,12 +144,12 @@ const popupProfileAvatar = new PopupWithForm(
       .setUserProfileAvatar(avatar)
       .then(() => {
         profileAvatar.src = avatar;
+        popupProfileAvatar.close();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {
-        popupProfileAvatar.close();
         popupProfileAvatar.setRender(false);
       });
   },
@@ -175,15 +176,15 @@ const popupCardAdd = new PopupWithForm(
       .then((newCard) => {
         const cardElement = createCard(newCard);
         cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
+        popupCardAdd.close();
+        formCardAdd.reset();
+        formValidators["card-add_form"].disableButton();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {
-        popupCardAdd.close();
         popupCardAdd.setRender(false);
-        formCardAdd.reset();
-        formValidators["card-add_form"].disableButton();
       });
   },
   configuration.inputSelector,
@@ -198,6 +199,7 @@ function handleCardPopupImage(card) {
   // suggested by Sprint 7 project to keep this func in index.js for now
   popupImage.open(card); // since "this" is prohibited outside of classes, and passing an arg to the func as a param to this func causes a lexical ref err, then in the class's handler func it would need to pass the ready-made getInfo() method to pass through unimpeded
 }
+
 const popupImage = new PopupWithImage(modalWindowCardView, {
   image: modalImage,
   caption: modalCaption,
@@ -222,6 +224,7 @@ function handleCardLike(card) {
 function handleCardPopupDelete(card) {
   popupCardDelete.open(card);
 }
+
 const popupCardDelete = new PopupWithConfirm(
   modalWindowCardDelete,
   (event, card) => {
