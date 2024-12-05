@@ -27,6 +27,9 @@ import {
   modalWindowProfileAvatar,
   inputProfileAvatar,
   cardsGallery,
+  submitProfileInfo,
+  submitProfileAvatar,
+  submitCardAdd,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
 
@@ -122,6 +125,7 @@ const popupProfileInfo = new PopupWithForm(
   modalWindowProfile,
   (event, { name, description }) => {
     event.preventDefault();
+    popupProfileInfo.setRender(true); // renders faster when synced before the async begins
     api
       .setUserProfileData(name, description)
       .then(() => {
@@ -129,10 +133,15 @@ const popupProfileInfo = new PopupWithForm(
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        popupProfileInfo.close();
+        popupProfileInfo.setRender(false);
       });
-    popupProfileInfo.close();
   },
-  configuration.inputSelector
+  configuration.inputSelector,
+  submitProfileInfo,
+  "Saving..."
 );
 popupProfileInfo.setEventListeners();
 /* END PROFILE INFO SECTION */
@@ -146,6 +155,7 @@ const popupProfileAvatar = new PopupWithForm(
   modalWindowProfileAvatar,
   (event, { avatar }) => {
     event.preventDefault();
+    popupProfileAvatar.setRender(true);
     api
       .setUserProfileAvatar(avatar)
       .then(() => {
@@ -156,9 +166,12 @@ const popupProfileAvatar = new PopupWithForm(
       })
       .finally(() => {
         popupProfileAvatar.close();
+        popupProfileAvatar.setRender(false);
       });
   },
-  configuration.inputSelector
+  configuration.inputSelector,
+  submitProfileAvatar,
+  "Saving..."
 );
 popupProfileAvatar.setEventListeners();
 /* END PROFILE AVATAR SECTION */
@@ -173,6 +186,7 @@ const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
   (event, { title, link }) => {
     event.preventDefault();
+    popupCardAdd.setRender(true);
     api
       .addNewCard(title, link)
       .then((newCard) => {
@@ -181,12 +195,17 @@ const popupCardAdd = new PopupWithForm(
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        popupCardAdd.close();
+        popupCardAdd.setRender(false);
+        formCardAdd.reset();
+        formValidators["card-add_form"].disableButton();
       });
-    popupCardAdd.close();
-    formCardAdd.reset();
-    formValidators["card-add_form"].disableButton();
   },
-  configuration.inputSelector
+  configuration.inputSelector,
+  submitCardAdd,
+  "Creating..."
 );
 popupCardAdd.setEventListeners();
 /* END CARD ADD SECTION */

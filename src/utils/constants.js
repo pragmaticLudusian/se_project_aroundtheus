@@ -26,17 +26,21 @@ const formProfile = document.forms["profile_info_form"];
 export const inputProfileName = formProfile["name"]; // can refer to by name or id attribs
 export const inputProfileDescription = formProfile["description"];
 // profile avatar from & input var
+export const submitProfileInfo = formProfile["profile_info_form_save"];
 export const modalWindowProfileAvatar = document.querySelector(
   "#modal_profile_avatar"
 );
 const formProfileAvatar = document.forms["profile_avatar_form"];
 export const inputProfileAvatar = formProfileAvatar["avatar"];
+export const submitProfileAvatar =
+  formProfileAvatar["profile_avatar_form_save"];
 
 // init card add & related modal window
 export const buttonAddCard = profile.querySelector(".profile__add-button");
 export const modalWindowCardAdd = document.querySelector("#modal_card-add");
 // card-add form & input vars
 export const formCardAdd = document.forms["card-add_form"];
+export const submitCardAdd = formCardAdd["card-add_form_save"];
 
 // init card view modal window
 export const modalWindowCardView = document.querySelector("#modal_card-view");
