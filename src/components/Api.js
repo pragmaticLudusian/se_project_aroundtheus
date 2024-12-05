@@ -4,123 +4,74 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  _request(url, options) {
+    return fetch(url, options).then(this._checkResponse); // thenable takes refs
+  }
+
+  _checkResponse(res) {
+    if (res.ok) return res.json(); // if successful, returns a user object
+    return Promise.reject(`error ${res.status}`); // otherwise, output an error to .catch, which should properly return the rejected Promise to a .catch() outside the class in index.js
+  }
+
   getUserProfileData() {
     // returns a Promise type object which is "thenable" to continue the async chain to go forward once the JSON object is retrieved from the server via the API call
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) return res.json(); // if successful, returns a user object
-        return Promise.reject(`error ${res.status} while getting user data`); // otherwise, output an error to .catch
-      })
-      .catch((err) => {
-        return Promise.reject(err); // properly return a rejected Promise state
-      });
-  }
-
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return Promise.reject(`error ${res.status} while getting cards data`);
-      })
-      .catch((err) => {
-        return Promise.reject(err);
-      });
-  }
-
-  getUserAndCards(promiseArray) {
-    return Promise.all(promiseArray).catch((err) => {
-      return Promise.reject("Something went wrong :(", err);
     });
   }
 
+  getInitialCards() {
+    return this._request(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+    });
+  }
+
+  getUserAndCards(promiseArray) {
+    return Promise.all(promiseArray);
+  }
+
   setUserProfileData(name, description) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({ name: name, about: description }),
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return Promise.reject(`error ${res.status} while updating user data`);
-      })
-      .catch((err) => {
-        return Promise.reject(err);
-      });
+    });
   }
 
   addNewCard(title, link) {
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._request(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({ name: title, link: link }),
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return Promise.reject(`error ${res.status} while adding a new card`);
-      })
-      .catch((err) => {
-        return Promise.reject(err);
-      });
+    });
   }
 
   deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+    return this._request(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return Promise.reject(`error ${res.status} while deleting a card`);
-      })
-      .catch((err) => {
-        return Promise.reject(err);
-      });
+    });
   }
 
   likeCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    return this._request(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT", // despite being "PUT", the server handles the boolean just fine w/out a body inside the request
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return Promise.reject(`error ${res.status} while liking a card`);
-      })
-      .catch((err) => {
-        return Promise.reject(err);
-      });
+    });
   }
 
   unlikeCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    return this._request(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return Promise.reject(`error ${res.status} while unliking a card`);
-      })
-      .catch((err) => {
-        return Promise.reject(err);
-      });
+    });
   }
 
   setUserProfileAvatar(avatar) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({ avatar: avatar }),
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return Promise.reject(`error ${res.status} while updating an avatar`);
-      })
-      .catch((err) => {
-        return Promise.reject(err);
-      });
+    });
   }
 }
