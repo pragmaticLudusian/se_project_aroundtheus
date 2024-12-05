@@ -131,7 +131,7 @@ popupProfileInfo.setEventListeners();
 
 /* PROFILE AVATAR SECTION */
 buttonUpdateAvatar.addEventListener("click", () => {
-  inputProfileAvatar.value = profileAvatar.src;
+  inputProfileAvatar.value = userProfile.getAvatar();
   popupProfileAvatar.open();
 });
 
@@ -143,7 +143,7 @@ const popupProfileAvatar = new PopupWithForm(
     api
       .setUserProfileAvatar(avatar)
       .then(() => {
-        profileAvatar.src = avatar;
+        userProfile.setAvatar(avatar);
         popupProfileAvatar.close();
       })
       .catch((err) => {
