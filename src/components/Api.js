@@ -33,7 +33,7 @@ export default class Api {
 
   getUserAndCards(promiseArray) {
     return Promise.all(promiseArray).catch((err) => {
-      console.error("Somethnig went wrong :(", err);
+      return Promise.reject("Something went wrong :(", err);
     });
   }
 
