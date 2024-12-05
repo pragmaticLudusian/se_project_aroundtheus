@@ -108,7 +108,7 @@ const popupProfileInfo = new PopupWithForm(
   modalWindowProfile,
   (event, { name, description }) => {
     event.preventDefault();
-    popupProfileInfo.setRender(true); // renders faster when synced before the async begins
+    popupProfileInfo.renderLoading(true); // renders faster when synced before the async begins
     api
       .setUserProfileData(name, description)
       .then(() => {
@@ -119,12 +119,11 @@ const popupProfileInfo = new PopupWithForm(
         console.error(err);
       })
       .finally(() => {
-        popupProfileInfo.setRender(false);
+        popupProfileInfo.renderLoading(false);
       });
   },
   configuration.inputSelector,
-  submitProfileInfo,
-  "Saving..."
+  submitProfileInfo
 );
 popupProfileInfo.setEventListeners();
 /* END PROFILE INFO SECTION */
@@ -139,7 +138,7 @@ const popupProfileAvatar = new PopupWithForm(
   modalWindowProfileAvatar,
   (event, { avatar }) => {
     event.preventDefault();
-    popupProfileAvatar.setRender(true);
+    popupProfileAvatar.renderLoading(true);
     api
       .setUserProfileAvatar(avatar)
       .then(() => {
@@ -150,12 +149,11 @@ const popupProfileAvatar = new PopupWithForm(
         console.error(err);
       })
       .finally(() => {
-        popupProfileAvatar.setRender(false);
+        popupProfileAvatar.renderLoading(false);
       });
   },
   configuration.inputSelector,
-  submitProfileAvatar,
-  "Saving..."
+  submitProfileAvatar
 );
 popupProfileAvatar.setEventListeners();
 /* END PROFILE AVATAR SECTION */
@@ -170,7 +168,7 @@ const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
   (event, { title, link }) => {
     event.preventDefault();
-    popupCardAdd.setRender(true);
+    popupCardAdd.renderLoading(true, "Creating...");
     api
       .addNewCard(title, link)
       .then((newCard) => {
@@ -184,12 +182,11 @@ const popupCardAdd = new PopupWithForm(
         console.error(err);
       })
       .finally(() => {
-        popupCardAdd.setRender(false);
+        popupCardAdd.renderLoading(false);
       });
   },
   configuration.inputSelector,
-  submitCardAdd,
-  "Creating..."
+  submitCardAdd
 );
 popupCardAdd.setEventListeners();
 /* END CARD ADD SECTION */

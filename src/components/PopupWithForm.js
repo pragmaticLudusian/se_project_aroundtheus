@@ -1,13 +1,12 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popup, handleSubmit, inputSelector, submitSelector, submitText) {
+  constructor(popup, handleSubmit, inputSelector, submitSelector) {
     super(popup); // popup selected element
     this._handleSubmit = handleSubmit; // callback func for submitting form
     this._inputSelector = inputSelector;
     this._submitSelector = submitSelector; // used for api render
-    this._submitText = submitText; // render text while contacting api
-    this._submitOriginal = this._submitSelector.textContent;
+    this._submitText = this._submitSelector.textContent; // initial pre-loading submit text
   }
 
   setEventListeners() {
@@ -28,9 +27,9 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  setRender(state) {
-    this._submitSelector.textContent = state
-      ? this._submitText
-      : this._submitOriginal;
+  renderLoading(isLoading, loadingText = "Saving...") {
+    this._submitSelector.textContent = isLoading
+      ? loadingText
+      : this._submitText;
   }
 }
