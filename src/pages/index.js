@@ -97,9 +97,7 @@ const userProfile = new UserInfo({
 });
 
 buttonEditProfile.addEventListener("click", () => {
-  const { name, description } = userProfile.getUserInfo();
-  inputProfileName.value = name;
-  inputProfileDescription.value = description;
+  popupProfileInfo.setInputValues(userProfile.getUserInfo()); // { name, description }
   formValidators["profile_info_form"].resetFormValidation(); // input always valid when taking from the html page
   popupProfileInfo.open();
 });
@@ -130,7 +128,7 @@ popupProfileInfo.setEventListeners();
 
 /* PROFILE AVATAR SECTION */
 buttonUpdateAvatar.addEventListener("click", () => {
-  inputProfileAvatar.value = userProfile.getAvatar();
+  popupProfileAvatar.setInputValues(userProfile.getAvatar()); // { avatar } as obj, not string
   popupProfileAvatar.open();
 });
 

@@ -27,6 +27,12 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   }
 
+  setInputValues(data) {
+    this._inputFields.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
   renderLoading(isLoading, loadingText = "Saving...") {
     this._submitSelector.textContent = isLoading
       ? loadingText
