@@ -42,43 +42,31 @@ const api = new Api({
 });
 
 let cardSection; // since the card section is being tied to the DOM and is needed to both init and add cards later on, it would need to be declared at the global scope and can be reassigned with let.
-let userId;
+let userId; // this is global too
 
+// this is a Promise array that would get fulfilled when all subsequent promises are fulfilled too (&&-style)
+// as such, it chains on a per-array basis, not per individual Promise
 api
-  .getUserAndCards([
-    // this is a Promise array that would get fulfilled when all subsequent promises are fulfilled too (&&-style)
-    api
-      .getUserProfileData() // return user from server as a JSON object
-      .then(({ _id, name, about, avatar }) => {
-        userId = _id; // for future use
-        userProfile.setUserInfo(name, about); // despite being async, this will already be initialized thanks to event loop (sync then async)
-        userProfile.setAvatar(avatar);
-      })
-      .catch((err) => {
-        console.error(err); // w/out a way to return or print error to console it gets uncaught
-      }),
-    api
-      .getInitialCards() // return the card array from the server
-      .then((cardArray) => {
-        // because the section var has to be accessed in the async bubble, exporting it would be a slight more complicated when new cards have to be added to the server, not just from it
-        cardSection = new Section(
-          {
-            items: cardArray,
-            renderer: (item) => {
-              const cardElement = createCard(item);
-              cardSection.addItem(cardElement);
-            },
-          },
-          cardsGallery
-        );
-        cardSection.renderItems();
-      })
-      .catch((err) => {
-        console.error(err);
-      }),
-  ])
+  .getUserAndCards([api.getUserProfileData(), api.getInitialCards()])
+  .then(([{ _id, name, about, avatar }, cardArray]) => {
+    userId = _id; // for future use
+    userProfile.setUserInfo(name, about); // despite being async, this will already be initialized thanks to event loop (sync then async)
+    userProfile.setAvatar(avatar);
+
+    cardSection = new Section(
+      {
+        items: cardArray,
+        renderer: (item) => {
+          const cardElement = createCard(item);
+          cardSection.addItem(cardElement);
+        },
+      },
+      cardsGallery
+    );
+    cardSection.renderItems();
+  })
   .catch((err) => {
-    console.error(err);
+    console.error(err); // w/out a way to return or print error to console it gets uncaught
   });
 
 const createCard = (cardItem) => {
