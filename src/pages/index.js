@@ -86,6 +86,21 @@ Array.from(document.forms).forEach((formElement) => {
   formValidators[formElement.id] = validator;
   validator.enableValidation();
 });
+
+function handleSubmit(request, popup, loadingText = "Saving...") {
+  // request is a callback that returns a Promise to chain before closing the popup, which must be inside .then for successful requests. the catch and finally are all followed after the function call finishes its .then
+  // popup is the popup instance
+  // loadingText is optional for the submit button when the api is being requested
+  popup.renderLoading(true, loadingText); // renders faster when synced before the async begins
+  request()
+    .then(() => {
+      popup.close();
+    })
+    .catch(console.error)
+    .finally(() => {
+      popup.renderLoading(false);
+    });
+}
 /* END DECLARATIVE SECTION */
 
 /* PROFILE INFO SECTION */
@@ -106,19 +121,11 @@ const popupProfileInfo = new PopupWithForm(
   modalWindowProfile,
   (event, { name, description }) => {
     event.preventDefault();
-    popupProfileInfo.renderLoading(true); // renders faster when synced before the async begins
-    api
-      .setUserProfileData(name, description)
-      .then(() => {
+    handleSubmit(() => {
+      return api.setUserProfileData(name, description).then(() => {
         userProfile.setUserInfo(name, description);
-        popupProfileInfo.close();
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        popupProfileInfo.renderLoading(false);
       });
+    }, popupProfileInfo);
   },
   configuration.inputSelector,
   submitProfileInfo
@@ -136,19 +143,12 @@ const popupProfileAvatar = new PopupWithForm(
   modalWindowProfileAvatar,
   (event, { avatar }) => {
     event.preventDefault();
-    popupProfileAvatar.renderLoading(true);
-    api
-      .setUserProfileAvatar(avatar)
-      .then(() => {
+    handleSubmit(() => {
+      return api.setUserProfileAvatar(avatar).then(() => {
         userProfile.setAvatar(avatar);
         popupProfileAvatar.close();
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        popupProfileAvatar.renderLoading(false);
       });
+    }, popupProfileAvatar);
   },
   configuration.inputSelector,
   submitProfileAvatar
@@ -166,22 +166,19 @@ const popupCardAdd = new PopupWithForm(
   modalWindowCardAdd,
   (event, { title, link }) => {
     event.preventDefault();
-    popupCardAdd.renderLoading(true, "Creating...");
-    api
-      .addNewCard(title, link)
-      .then((newCard) => {
-        const cardElement = createCard(newCard);
-        cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
-        popupCardAdd.close();
-        formCardAdd.reset();
-        formValidators["card-add_form"].disableButton();
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        popupCardAdd.renderLoading(false);
-      });
+    handleSubmit(
+      () => {
+        return api.addNewCard(title, link).then((newCard) => {
+          const cardElement = createCard(newCard);
+          cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
+          popupCardAdd.close();
+          formCardAdd.reset();
+          formValidators["card-add_form"].disableButton();
+        });
+      },
+      popupCardAdd,
+      "Creating..."
+    );
   },
   configuration.inputSelector,
   submitCardAdd
