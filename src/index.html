@@ -25,17 +25,16 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img
-          src="<%=require('./images/jacques-cousteau.jpg')%>"
-          alt="Jacques Cousteau avatar"
-          class="profile__avatar"
-        />
+        <div class="profile__avatar-container">
+          <img src="data:," alt="avatar" class="profile__avatar" />
+          <button class="profile__avatar-edit" type="button"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__top-wrapper">
-            <h1 class="profile__name">Jacques Cousteau</h1>
+            <h1 class="profile__name"></h1>
             <button class="profile__edit-button" type="button"></button>
           </div>
-          <p class="profile__description">Explorer</p>
+          <p class="profile__description"></p>
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>
@@ -48,16 +47,16 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
     </footer>
-    <div class="modal" id="modal_profile">
+    <div class="modal" id="modal_profile_info">
       <form
         class="modal__container modal__container_type_form"
-        id="profile_form"
+        id="profile_info_form"
         novalidate
       >
         <button
           type="button"
           class="modal__close-button"
-          id="modal_profile_close"
+          id="modal_profile_info_close"
         ></button>
         <h2 class="modal__title">Edit profile</h2>
         <fieldset class="form">
@@ -90,7 +89,7 @@
           <button
             type="submit"
             class="form__save-button form__save-button_active"
-            id="profile_form_save"
+            id="profile_info_form_save"
           >
             Save
           </button>
@@ -155,6 +154,62 @@
         <p class="modal__caption"></p>
       </div>
     </div>
+    <div class="modal" id="modal_card-delete">
+      <form
+        class="modal__container modal__container_type_form"
+        id="card-delete_form"
+      >
+        <button
+          type="button"
+          class="modal__close-button"
+          id="modal_card-delete_close"
+        ></button>
+        <h2 class="modal__title">Are you sure?</h2>
+        <button
+          type="submit"
+          class="form__save-button form__save-button_active"
+          id="card-delete_form_save"
+        >
+          Yes
+        </button>
+      </form>
+    </div>
+
+    <div class="modal" id="modal_profile_avatar">
+      <form
+        class="modal__container modal__container_type_form"
+        id="profile_avatar_form"
+        novalidate
+      >
+        <button
+          type="button"
+          class="modal__close-button"
+          id="modal_profile_avatar_close"
+        ></button>
+        <h2 class="modal__title">Change profile picture</h2>
+        <fieldset class="form">
+          <div class="form__input-container">
+            <input
+              type="url"
+              name="avatar"
+              id="profile_avatar"
+              class="form__input"
+              placeholder="Avatar link"
+              required
+            />
+            <span class="form__error" id="profile_avatar_error"></span>
+          </div>
+          <button
+            type="submit"
+            class="form__save-button form__save-button_active"
+            id="profile_avatar_form_save"
+          >
+            Save
+          </button>
+        </fieldset>
+      </form>
+    </div>
+
     <template id="card-template">
       <li class="card">
         <button class="card__delete-button" type="button"></button>
