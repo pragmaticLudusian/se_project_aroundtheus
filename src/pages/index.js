@@ -225,12 +225,10 @@ const popupCardDelete = new PopupWithConfirm(
       .deleteCard(card.getInfo().id)
       .then(() => {
         card.deleteCard();
+        popupCardDelete.close();
       })
       .catch((err) => {
         console.error(err);
-      })
-      .finally(() => {
-        popupCardDelete.close();
       });
   }
 );
