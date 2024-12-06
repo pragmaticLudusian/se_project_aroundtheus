@@ -146,7 +146,6 @@ const popupProfileAvatar = new PopupWithForm(
     handleSubmit(() => {
       return api.setUserProfileAvatar(avatar).then(() => {
         userProfile.setAvatar(avatar);
-        popupProfileAvatar.close();
       });
     }, popupProfileAvatar);
   },
@@ -171,7 +170,6 @@ const popupCardAdd = new PopupWithForm(
         return api.addNewCard(title, link).then((newCard) => {
           const cardElement = createCard(newCard);
           cardSection.addItem(cardElement, "prepend"); // can still be used to add later cards, not just init ones
-          popupCardAdd.close();
           formCardAdd.reset();
           formValidators["card-add_form"].disableButton();
         });
