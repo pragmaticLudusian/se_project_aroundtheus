@@ -27,22 +27,24 @@ This website was made with responsive design in mind, providing navigation and a
 
 ### Mobile
 
-![mobile view](images/demo/screenshot_320.png "Mobile view")
+![mobile view](src/images/demo/screenshot_320.png "Mobile view")
 
 ### Tablet
 
-![tablet view](images/demo/screenshot_640.png "Tablet view")
+![tablet view](src/images/demo/screenshot_640.png "Tablet view")
 
 ### Desktop
 
-![desktop view](images/demo/screenshot_960_1.png "Desktop view")
-![desktop view](images/demo/screenshot_960_2.png "Edit profile modal window")
-![desktop view](images/demo/screenshot_960_3.png "Card image view modal window")
-![desktop view](images/demo/screenshot_960_4.png "Form validation")
+![desktop view](src/images/demo/screenshot_960_1.png "Desktop view")
+![desktop view](src/images/demo/screenshot_960_2.png "Edit profile modal window")
+![desktop view](src/images/demo/screenshot_960_3.png "Card image view modal window")
+![desktop view](src/images/demo/screenshot_960_4.png "Form validation")
 
 ### Video
 
-[Link's in the Google Drive](https://drive.google.com/file/d/15dxpdWaq9NFDU2au3w3Y2PKEp8nig48a/view?usp=drive_link)
+[**Sprint 9 - Youtube link**](https://youtu.be/-d1Hk_sM61M)
+
+[Sprint 3 - Google Drive (outdated)](https://drive.google.com/file/d/1Ubwb2TJiIOi9OMVTyT707nrn7GscelmX/view?usp=drive_link)
 
 ## Resources
 
